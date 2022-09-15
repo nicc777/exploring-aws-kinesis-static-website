@@ -17,5 +17,6 @@ fi
 
 rm -vfrR $PUBLIC_BASE/*
 cp -vfrR ./* $PUBLIC_BASE/
+rm -vf $PUBLIC_BASE/deployment.sh
 
 logger "Copied public static files"

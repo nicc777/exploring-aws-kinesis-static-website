@@ -17,5 +17,6 @@ fi
 
 rm -vfrR $PRIVATE_BASE/*
 cp -vfrR ./* $PRIVATE_BASE/
+rm -vf $PRIVATE_BASE/deployment.sh
 
 logger "Copied private static files"
