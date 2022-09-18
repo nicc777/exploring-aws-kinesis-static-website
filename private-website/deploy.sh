@@ -20,7 +20,7 @@ rm -vfrR $PRIVATE_BASE/*
 cp -vfrR ./* $PRIVATE_BASE/
 rm -vf $PRIVATE_BASE/deployment.sh
 
-echo "Directory Listeing of ${PRIVATE_BASE/}"
+echo "Directory Listeing of ${PRIVATE_BASE}"
 ls -lahrt $PRIVATE_BASE/*
 
 logger "Copied private static files"

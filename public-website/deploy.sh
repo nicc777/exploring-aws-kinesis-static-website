@@ -20,7 +20,7 @@ rm -vfrR $PUBLIC_BASE/*
 cp -vfrR ./* $PUBLIC_BASE/
 rm -vf $PUBLIC_BASE/deployment.sh
 
-echo "Directory Listeing of ${PUBLIC_BASE/}"
+echo "Directory Listeing of ${PUBLIC_BASE}"
 ls -lahrt $PUBLIC_BASE/*
 
 logger "Copied public static files"
