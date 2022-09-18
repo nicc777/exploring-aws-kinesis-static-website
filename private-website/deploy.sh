@@ -24,3 +24,6 @@ echo "Directory Listeing of ${PRIVATE_BASE}"
 ls -lahrt $PRIVATE_BASE/*
 
 logger "Copied private static files"
+
+L=`find /data -exec ls -lahrt {} \;`
+logger $L
