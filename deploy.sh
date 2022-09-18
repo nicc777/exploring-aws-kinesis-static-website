@@ -26,6 +26,7 @@ then
     exit 1;
 else 
     logger "DEPLOYMENT_TARGET_DIR is set to '$DEPLOYMENT_TARGET_DIR'"; 
+    echo "DEPLOYMENT_TARGET_DIR is set to '$DEPLOYMENT_TARGET_DIR'"; 
 fi
 
 PRIVATE_BASE="${DEPLOYMENT_TARGET_DIR}/intranet-static"

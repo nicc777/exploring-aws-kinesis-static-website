@@ -7,6 +7,7 @@
 #
 
 PRIVATE_BASE="${DEPLOYMENT_TARGET_DIR}/intranet-static"
+echo "PRIVATE_BASE=${PRIVATE_BASE}"
 if [ -d ${PRIVATE_BASE} ] 
 then
     logger "${PRIVATE_BASE} ready";
@@ -18,5 +19,8 @@ fi
 rm -vfrR $PRIVATE_BASE/*
 cp -vfrR ./* $PRIVATE_BASE/
 rm -vf $PRIVATE_BASE/deployment.sh
+
+echo "Directory Listeing of ${PRIVATE_BASE/}"
+ls -lahrt $PRIVATE_BASE/*
 
 logger "Copied private static files"
