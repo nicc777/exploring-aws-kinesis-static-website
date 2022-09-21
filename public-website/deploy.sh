@@ -10,9 +10,9 @@ PUBLIC_BASE="${DEPLOYMENT_TARGET_DIR}/www-static"
 echo "PUBLIC_BASE=${PUBLIC_BASE}"
 if [ -d ${PUBLIC_BASE} ] 
 then
-    logger "${PUBLIC_BASE} ready";
+    logger -- "${PUBLIC_BASE} ready";
 else
-    logger "${PUBLIC_BASE} not ready";
+    logger -- "${PUBLIC_BASE} not ready";
     exit 1;
 fi
 
@@ -23,7 +23,7 @@ rm -vf $PUBLIC_BASE/deployment.sh
 echo "Directory Listeing of ${PUBLIC_BASE}"
 ls -lahrt $PUBLIC_BASE/* 
 
-logger "Copied public static files"
+logger -- "Copied public static files"
 
 L=`find /data -exec ls -lahrt {} \;`
-logger $L
+logger -- $L
