@@ -1,9 +1,7 @@
 // Cognito Config (Public Domain)
 var awsRegion = "eu-central-1";
-var cognitoUserPoolId = "eu-central-1_4Z5nOgXsG";
-var cognitoClientId = "2m1354dfa9ae2k2snb6id79uqg";
+var cognitoClientId = "__CLIENT_ID__";
 var cognitoAuthDomain = "staff-auth.auth.eu-central-1.amazoncognito.com";
-//var callBackUrl = "http%3A%2F%2Flocalhost%3A9000%2Fcallback.html"
 var callBackUrl = "https%3A%2F%2Finternal.sandybox.link%3A8443%2Fcallback.html"
 
 
