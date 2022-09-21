@@ -3,6 +3,9 @@ var awsRegion = "eu-central-1";
 var cognitoUserPoolId = "eu-central-1_4Z5nOgXsG";
 var cognitoClientId = "2m1354dfa9ae2k2snb6id79uqg";
 var cognitoAuthDomain = "staff-auth.auth.eu-central-1.amazoncognito.com";
+//var callBackUrl = "http%3A%2F%2Flocalhost%3A9000%2Fcallback.html"
+var callBackUrl = "https%3A%2F%2Finternal.sandybox.link%3A8443%2Fcallback.html"
+
 
 // START - Copied from https://tonyxu-io.github.io/pkce-generator/ -or- https://github.com/tonyxu-io/pkce-generator
 function generateCodeVerifier() {
@@ -62,7 +65,7 @@ function loginFunction() {
     var codeVerifier = getOrGenerateVerifier();
     var codeChallenge = generateCodeChallenge(codeVerifier);
     var state = createRandomState();
-    var cognitoRequestUrl = "https://" + cognitoAuthDomain + "/oauth2/authorize?response_type=code&client_id=" + cognitoClientId + "&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback.html&state=" + state + "&scope=profile+email+aws.cognito.signin.user.admin&code_challenge=" + codeChallenge + "&code_challenge_method=S256";
+    var cognitoRequestUrl = "https://" + cognitoAuthDomain + "/oauth2/authorize?response_type=code&client_id=" + cognitoClientId + "&redirect_uri=" + callBackUrl + "&state=" + state + "&scope=profile+email+aws.cognito.signin.user.admin&code_challenge=" + codeChallenge + "&code_challenge_method=S256";
     console.log("cognitoRequestUrl=" + cognitoRequestUrl);
     alert("You will now be redirected to the login page");
     window.location.replace(cognitoRequestUrl);
