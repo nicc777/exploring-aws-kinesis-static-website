@@ -1,7 +1,7 @@
 // Cognito Config (Public Domain)
 var awsRegion = "eu-central-1";
-var cognitoUserPoolId = "eu-central-1_QbMQ2yADP";
-var cognitoClientId = "68lgmucsh41htuh81kdm3knq9u";
+var cognitoUserPoolId = "eu-central-1_4Z5nOgXsG";
+var cognitoClientId = "2m1354dfa9ae2k2snb6id79uqg";
 var cognitoAuthDomain = "staff-auth.auth.eu-central-1.amazoncognito.com";
 
 // START - Copied from https://tonyxu-io.github.io/pkce-generator/ -or- https://github.com/tonyxu-io/pkce-generator
