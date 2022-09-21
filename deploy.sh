@@ -34,4 +34,7 @@ PUBLIC_BASE="${DEPLOYMENT_TARGET_DIR}/www-static"
 check_dir $PRIVATE_BASE
 check_dir $PUBLIC_BASE
 
+aws cloudformation list-exports --output json > /tmp/cf-exports.json
+cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="EmployeeCognitoStack-CognitoEmployeeAuthorizerUserPoolId")' | jq '.Value' | awk -F\" '{print $2}' > /tmp/employee_userpool_id
+cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="EmployeeCognitoStack-CognitoEmployeeAuthorizerUserPoolClientId")' | jq '.Value' | awk -F\" '{print $2}' > /tmp/employee_client_id
 
