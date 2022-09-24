@@ -3,6 +3,8 @@ var awsRegion = "eu-central-1";
 var cognitoClientId = "__CLIENT_ID__";
 var cognitoAuthDomain = "staff-auth.auth.eu-central-1.amazoncognito.com";
 var callBackUrl = "https%3A%2F%2Finternal.sandybox.link%3A8443%2Fcallback.html"
+var applicationBaseUri = "__INTRANET_WEB_APP_BASE_URI__"
+var postLogoutRedirectPage = "/loggedout.html"
 
 
 // START - Copied from https://tonyxu-io.github.io/pkce-generator/ -or- https://github.com/tonyxu-io/pkce-generator
@@ -72,7 +74,8 @@ function loginFunction() {
 
 function logoutFunction() {
     console.log("Processing LOGOUT action");
-    clearSessionStorage();
+    var logoutUrl = "https://" + cognitoAuthDomain + "/logout?client_id=" + cognitoClientId + "&logout_uri=" + applicationBaseUri + postLogoutRedirectPage;
+    window.location.replace(logoutUrl);
 }
 
 

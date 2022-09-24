@@ -6,37 +6,14 @@
 
 <body>
     <h3>Employee Intranet Site</h3>
-    <div id="testNavigation" hidden>
-        <hr />
-        <p>
-            <ul>
-                <li>In order to use the application, you must <a href="pure-js.html">login</a></li>
-            </ul>
-        </p>
-    </div>
-    <div id="logoutNavigation" hidden>
-        <hr />
-        <p>
-            You can now access the application <a href="access-card-app/index.html">here...</a>
-        </p>
-        <p>
-            <button onclick="goLogout()">Logout</button> <div id="userEmailDiv" style="display: inline;"></div>
-        </p>
-    </div>
+    <hr />
+    <h5>Applications</h5>
+    <p>
+        <ul>
+            <a href="access-card-app/index.html">Access Card Application</a>
+        </ul>
+    </p>
 </body>
 
-<script type="application/javascript">
-
-    if (isLoggedIn()) {
-        var userEmail = sessionStorage.getItem("userEmail");
-        document.getElementById("logoutNavigation").hidden = false;
-        document.getElementById("testNavigation").hidden = true;
-        document.getElementById("userEmailDiv").innerText = " " + userEmail;
-    } else {
-        document.getElementById("logoutNavigation").hidden = true;
-        document.getElementById("testNavigation").hidden = false;
-    }
-
-</script>
 
 </html>
