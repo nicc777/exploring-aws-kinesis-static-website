@@ -49,6 +49,7 @@ sed -i "s/__CLIENT_ID__/$CLIENT_ID/g" private-website/js/webapp.js
 INTRANET_WEB_APP_BASE_URI="https://${INTERNAL_APP_DOMAIN}:${INTERNAL_APP_PORT}"
 logger -- "INTRANET_WEB_APP_BASE_URI=${INTRANET_WEB_APP_BASE_URI}"
 echo "INTRANET_WEB_APP_BASE_URI=${INTRANET_WEB_APP_BASE_URI}" > /data/logs/intranet_base_url
-sed -i "s/__INTRANET_WEB_APP_BASE_URI__/$INTRANET_WEB_APP_BASE_URI/g" private-website/js/webapp.js
+ESCAPED_REPLACE=$(printf '%s\n' "$INTRANET_WEB_APP_BASE_URI" | sed -e 's/[\/&]/\\&/g')
+sed -i "s/__INTRANET_WEB_APP_BASE_URI__/$ESCAPED_REPLACE/g" private-website/js/webapp.js
 
 echo "File private-website/js/webapp.js updated."
