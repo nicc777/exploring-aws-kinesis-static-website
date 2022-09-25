@@ -45,3 +45,5 @@ sed -i "s/__CLIENT_ID__/$CLIENT_ID/g" private-website/js/webapp.js
 
 INTRANET_WEB_APP_BASE_URI="https://${INTERNAL_APP_DOMAIN}:${INTERNAL_APP_PORT}"
 sed -i "s/__INTRANET_WEB_APP_BASE_URI__/$INTRANET_WEB_APP_BASE_URI/g" private-website/js/webapp.js
+
+echo "File private-website/js/webapp.js updated."
