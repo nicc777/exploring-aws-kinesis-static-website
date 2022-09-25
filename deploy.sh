@@ -10,7 +10,7 @@
 
 . /etc/environment
 
-env > /data/log/runnning_environment_main_deployment_script
+env > /data/logs/runnning_environment_main_deployment_script
 
 check_dir () {
     DIR=$1
