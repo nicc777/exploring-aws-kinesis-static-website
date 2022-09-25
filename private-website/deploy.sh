@@ -4,6 +4,8 @@
 #
 #   GITHUB_WORKDIR          - Root of where all rleases are unpacked
 #   DEPLOYMENT_TARGET_DIR   - Root of the FSX filesystem where project files can be copied
+#   INTERNAL_APP_DOMAIN     - Internal Application domain, for example "example.tld"
+#   INTERNAL_APP_PORT       - TCP Port for the Listener of this domain, for example "8443"
 #
 
 PRIVATE_BASE="${DEPLOYMENT_TARGET_DIR}/intranet-static"

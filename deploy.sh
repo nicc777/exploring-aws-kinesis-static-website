@@ -4,6 +4,8 @@
 #
 #   GITHUB_WORKDIR          - Root of where all rleases are unpacked
 #   DEPLOYMENT_TARGET_DIR   - Root of the FSX filesystem where project files can be copied
+#   INTERNAL_APP_DOMAIN     - Internal Application domain, for example "example.tld"
+#   INTERNAL_APP_PORT       - TCP Port for the Listener of this domain, for example "8443"
 #
 
 
@@ -40,3 +42,6 @@ cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="EmployeeCognitoStack-
 
 CLIENT_ID=`cat /tmp/employee_client_id`
 sed -i "s/__CLIENT_ID__/$CLIENT_ID/g" private-website/js/webapp.js
+
+INTRANET_WEB_APP_BASE_URI="https://${INTERNAL_APP_DOMAIN}:${INTERNAL_APP_PORT}"
+sed -i "s/__INTRANET_WEB_APP_BASE_URI__/$INTRANET_WEB_APP_BASE_URI/g" private-website/js/webapp.js
