@@ -228,6 +228,16 @@ var accessTokenLoadedSuccessHtml = `
 </div>
 `;
 
+var accessTokenLoadedErrorHtml = `
+<div class="card bg-danger text-white mb-4">
+    <div class="card-body">Failed to load access token</div>
+    <div class="card-footer d-flex align-items-center justify-content-between">
+        <a class="small text-white stretched-link" href="index.html">Retry</a>
+        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+    </div>
+</div>
+`;
+
 var sideMenuHtml = `
 <div class="sb-sidenav-menu-heading">Core</div>
 <a class="nav-link" href="index.html">
@@ -260,7 +270,10 @@ function ajaxTest(){
                 $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
                 $("#labsMenu").html(sideMenuHtml);
                 $("#labUsername").text(sessionStorage.getItem("accessTokenUsername"));
-            } 
+            },
+            error: function(jqXHR, textStatus, errorThrown ) {
+                $("#labsAccessTokenLoaderCard").html(accessTokenLoadedErrorHtml);
+            }
         }
     ); 
 }
