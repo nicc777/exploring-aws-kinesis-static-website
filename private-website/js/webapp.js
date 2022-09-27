@@ -225,6 +225,7 @@ function ajaxTest(){
             url: applicationBaseUri + "/access-token-request", 
             success: function(r){ 
                 console.log(JSON.stringify(r)); 
+                sessionStorage.setItem("siteTokens", JSON.stringify(r));
                 $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
             } 
         }
