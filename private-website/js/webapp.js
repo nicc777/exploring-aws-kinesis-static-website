@@ -217,7 +217,7 @@ function ajaxTest(){
             // crossdomain:true, 
             type:"GET",  
             url: applicationBaseUri + "/access-token-request", 
-            success: function(r){ alert(r); } 
+            success: function(r){ console.log(JSON.stringify(r)); } 
         }
     ); 
 }
