@@ -211,6 +211,17 @@ function isLoggedIn() {
     return loggedIn;
 }
 
+function parseJwt (token) {
+    // From https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
+
 var accessTokenLoadedSuccessHtml = `
 <div class="card bg-success text-white mb-4">
     <div class="card-body">Application Ready</div>
@@ -238,8 +249,17 @@ function ajaxTest(){
             success: function(r){ 
                 console.log(JSON.stringify(r)); 
                 sessionStorage.setItem("siteTokens", JSON.stringify(r));
+                
+                var parsed_access_token = parseJwt(r.AccessTokenData);
+                
+                sessionStorage.setItem("parsedAccessToken", JSON.stringify(parsed_access_token));
+                sessionStorage.setItem("accessTokenExp", parsed_access_token.exp);
+                sessionStorage.setItem("accessTokenUsername", parsed_access_token.username);
+
+                // Update UI
                 $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
                 $("#labsMenu").html(sideMenuHtml);
+                $("#labUsername").text(sessionStorage.getItem("accessTokenUsername"));
             } 
         }
     ); 
