@@ -221,3 +221,5 @@ function ajaxTest(){
         }
     ); 
 }
+
+$(document).ready(ajaxTest);
