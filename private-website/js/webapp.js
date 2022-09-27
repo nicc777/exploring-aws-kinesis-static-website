@@ -210,3 +210,14 @@ function isLoggedIn() {
 
     return loggedIn;
 }
+
+function ajaxTest(){ 
+    $.ajax(
+        { 
+            // crossdomain:true, 
+            type:"GET",  
+            url: applicationBaseUri + "/access-token-request", 
+            success: function(r){ alert(r); } 
+        }
+    ); 
+}
