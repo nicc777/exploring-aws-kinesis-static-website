@@ -217,6 +217,18 @@ var accessTokenLoadedSuccessHtml = `
 </div>
 `;
 
+var sideMenuHtml = `
+<div class="sb-sidenav-menu-heading">Core</div>
+<a class="nav-link" href="index.html">
+    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    View Issued Access Cards
+</a>
+<a class="nav-link" href="index.html">
+    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    Link Access Card
+</a>
+`;
+
 function ajaxTest(){ 
     $.ajax(
         { 
@@ -227,6 +239,7 @@ function ajaxTest(){
                 console.log(JSON.stringify(r)); 
                 sessionStorage.setItem("siteTokens", JSON.stringify(r));
                 $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
+                $("#labsMenu").html(sideMenuHtml);
             } 
         }
     ); 
