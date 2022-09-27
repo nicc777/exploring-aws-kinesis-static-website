@@ -211,13 +211,22 @@ function isLoggedIn() {
     return loggedIn;
 }
 
+var accessTokenLoadedSuccessHtml = `
+<div class="card bg-success text-white mb-4">
+    <div class="card-body">Application Ready</div>
+</div>
+`;
+
 function ajaxTest(){ 
     $.ajax(
         { 
             // crossdomain:true, 
             type:"GET",  
             url: applicationBaseUri + "/access-token-request", 
-            success: function(r){ console.log(JSON.stringify(r)); } 
+            success: function(r){ 
+                console.log(JSON.stringify(r)); 
+                $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
+            } 
         }
     ); 
 }
