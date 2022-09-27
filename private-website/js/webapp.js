@@ -272,6 +272,8 @@ function ajaxTest(){
                 $("#labUsername").text(sessionStorage.getItem("accessTokenUsername"));
             },
             error: function(jqXHR, textStatus, errorThrown ) {
+                console.log("textStatus=" + textStatus);
+                console.log("errorThrown=" + errorThrown);
                 $("#labsAccessTokenLoaderCard").html(accessTokenLoadedErrorHtml);
             }
         }
