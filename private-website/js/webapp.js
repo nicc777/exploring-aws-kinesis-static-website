@@ -240,7 +240,7 @@ var accessTokenLoadedErrorHtml = `
 
 var sideMenuHtml = `
 <div class="sb-sidenav-menu-heading">Core</div>
-<a class="nav-link" href="index.html">
+<a class="nav-link" href="view_issued_cards.html">
     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
     View Issued Access Cards
 </a>
