@@ -325,6 +325,7 @@ function getActiveEmployees(qty, startToken) {
                         data.data.push(data_record);
                     }
 
+                    console.log("Passing data to table: " + JSON.stringify(data));
                     $('#datatablesSimple').DataTable({
                         ajax: data,
                     });
