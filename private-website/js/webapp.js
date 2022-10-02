@@ -324,6 +324,10 @@ function getActiveEmployees(qty, startToken) {
                         data_record.push(record.CardIssuedBy);
                         data.data.push(data_record);
                     }
+
+                    $('#datatablesSimple').DataTable({
+                        ajax: data,
+                    });
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     console.log("textStatus=" + textStatus);
@@ -334,9 +338,7 @@ function getActiveEmployees(qty, startToken) {
     }
 
 
-    $('#datatablesSimple').DataTable({
-        ajax: data,
-    });
+    
 
 
     // $('#datatablesSimple').DataTable({
