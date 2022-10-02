@@ -323,10 +323,7 @@ function getActiveEmployees(qty, startToken) {
                         data_record.push(record.CardIssuedTimestamp);
                         data_record.push(record.CardIssuedBy);
                         data.data.push(data_record);
-                        
-
                     }
-                    data = structuredClone(r);
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     console.log("textStatus=" + textStatus);
