@@ -144,6 +144,10 @@
         <script src="js/datatables-simple-demo.js"></script>
         <script type="application/javascript" src="../js/webapp.js"></script>
         <script type="application/javascript">
+            $(document).ready(function () {
+                $('#datatablesSimple').DataTable();
+            });
+
             // getActiveEmployees(25, null);
             // let applicationBaseUri = "https://internal.sandybox.link:8443/";
             let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
