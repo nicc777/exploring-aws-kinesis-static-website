@@ -144,7 +144,26 @@
         <script src="js/datatables-simple-demo.js"></script>
         <script type="application/javascript" src="../js/webapp.js"></script>
         <script type="application/javascript">
-            getActiveEmployees(25, null);
+            // getActiveEmployees(25, null);
+            let applicationBaseUri = "https://internal.sandybox.link:8443/";
+            let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
+            let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
+            api_url = api_url.replace(":8443", "");
+            if (startToken) {
+                api_url = api_url + "&start_key=" + startToken;
+            }
+
+            $('#datatablesSimple').DataTable({
+                ajax: {
+                    crossdomain:true, 
+                    type:"GET",  
+                    url: api_url, 
+                    headers: {
+                        "Authorization": accessToken
+                    },
+                    dataSrc: 'Employees'
+                },
+            });
         </script>
     </body>
 </html>
