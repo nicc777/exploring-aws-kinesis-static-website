@@ -329,7 +329,7 @@ function getActiveEmployees(qty, startToken) {
                     }
 
                     console.log("Passing data to table: " + JSON.stringify(data));
-
+                    document.getElementById("labTableLoadSpinner").outerHTML = "";
                     $('#datatablesSimple').DataTable({
                         data: data.data,
                         columns: [
