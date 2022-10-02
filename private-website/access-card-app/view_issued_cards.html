@@ -109,19 +109,6 @@
                                             <th>Card Issued By</th>
                                         </tr>
                                     </tfoot>
-                                    <!-- <tbody id="labTableData"> -->
-                                        <!-- <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr> -->
-                                        <!-- <div id="labTableData">
-                                            
-                                        </div> -->
-                                    <!-- </tbody> -->
                                 </table>
                             </div>
                         </div>
@@ -149,24 +136,7 @@
             $(document).ready(function () {
                 $('#datatablesSimple').DataTable();
             });
-
             getActiveEmployees(25, null);
-            
-            
-            // let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
-            // let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=10&status=active";
-            // api_url = api_url.replace(":8443", "");
-            // $('#datatablesSimple').DataTable({
-            //     ajax: {
-            //         crossdomain:true, 
-            //         type:"GET",  
-            //         url: api_url, 
-            //         headers: {
-            //             "Authorization": accessToken
-            //         },
-            //         dataSrc: 'Employees'
-            //     },
-            // });
         </script>
     </body>
 </html>
