@@ -280,9 +280,7 @@ function accessTokenRefresh(){
     ); 
 }
 
-$(document).ready(
-    accessTokenRefresh  
-);
+$(document).ready(accessTokenRefresh);
 
 function getActiveEmployees(qty, startToken) {
 
