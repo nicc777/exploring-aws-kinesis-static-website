@@ -326,9 +326,37 @@ function getActiveEmployees(qty, startToken) {
                     }
 
                     console.log("Passing data to table: " + JSON.stringify(data));
+                    // $('#datatablesSimple').DataTable({
+                    //     ajax: JSON.stringify(data),
+                    // });
+
                     $('#datatablesSimple').DataTable({
-                        ajax: JSON.stringify(data),
+                        data: data.data,
+                        columns: [
+                            // <th>Employee Id</th>
+                            //                 <th>Department</th>
+                            //                 <th>Employee Name</th>
+                            //                 <th>Employee Surname</th>
+                            //                 <th>Currently at Office</th>
+                            //                 <th>Current Office Location ID</th>
+                            //                 <th>Latest Card ID</th>
+                            //                 <th>Latest Card Status</th>
+                            //                 <th>Card Issued Timestamp</th>
+                            //                 <th>Card Issued By</th>
+
+                            { title: 'Employee Id' },
+                            { title: 'Department' },
+                            { title: 'Employee Name' },
+                            { title: 'Employee Surname' },
+                            { title: 'Currently at Office' },
+                            { title: 'Current Office Location ID' },
+                            { title: 'Latest Card ID' },
+                            { title: 'Latest Card Status' },
+                            { title: 'Card Issued Timestamp' },
+                            { title: 'Card Issued By' },
+                        ],
                     });
+
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     console.log("textStatus=" + textStatus);
