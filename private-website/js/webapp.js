@@ -291,7 +291,7 @@ function getActiveEmployees(qty, startToken) {
         api_url = api_url + "&start_key=" + startToken;
     }
 
-    let data = { data: [] }};
+    let data = { data: [] };
     if (accessToken) {
         let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
         api_url = api_url.replace(":8443", "");
