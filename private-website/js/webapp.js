@@ -292,7 +292,7 @@ function getActiveEmployees(qty, startToken) {
         }
         $.ajax(
             { 
-                // crossdomain:true, 
+                crossdomain:true, 
                 type:"GET",  
                 url: api_url, 
                 headers: {
