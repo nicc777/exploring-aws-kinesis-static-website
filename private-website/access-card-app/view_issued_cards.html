@@ -145,7 +145,7 @@
         <script type="application/javascript" src="../js/webapp.js"></script>
         <script type="application/javascript">
             // getActiveEmployees(25, null);
-            let applicationBaseUri = "https://internal.sandybox.link:8443/";
+            // let applicationBaseUri = "https://internal.sandybox.link:8443/";
             let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
             let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
             api_url = api_url.replace(":8443", "");
