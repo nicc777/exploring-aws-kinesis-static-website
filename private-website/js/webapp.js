@@ -290,19 +290,32 @@ function getActiveEmployees(qty, startToken) {
     if (startToken) {
         api_url = api_url + "&start_key=" + startToken;
     }
-    $('#datatablesSimple').dataTable( {
-        "ajax": {
+
+    $('#datatablesSimple').DataTable({
+        ajax: {
             crossdomain:true, 
             type:"GET",  
             url: api_url, 
             headers: {
                 "Authorization": accessToken
             },
-            "data": function ( d ) {
-                d.Employees;
-            }
-        }
+            dataSrc: 'Employees'
+        },
     });
+
+    // $('#datatablesSimple').dataTable( {
+    //     "ajax": {
+    //         crossdomain:true, 
+    //         type:"GET",  
+    //         url: api_url, 
+    //         headers: {
+    //             "Authorization": accessToken
+    //         },
+    //         "data": function ( d ) {
+    //             d.Employees;
+    //         }
+    //     }
+    // });
 
 
 //     let row_template = `<tr>
