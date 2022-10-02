@@ -286,9 +286,10 @@ function getActiveEmployees(qty, startToken) {
 
     let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
     if (accessToken) {
-        let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active"
+        let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
+        api_url = api_url.replace(":8443", "");
         if (startToken) {
-            api_url = api_url + "&start_key=" + startToken
+            api_url = api_url + "&start_key=" + startToken;
         }
         $.ajax(
             { 
