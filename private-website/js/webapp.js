@@ -301,6 +301,9 @@ function getActiveEmployees(qty, startToken) {
                 },
                 success: function(r){ 
                     console.log(JSON.stringify(r)); 
+                    for(var k in r.Employees) {
+                        console.log("RECORD: " + JSON.stringify(k));
+                    }
                     
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
