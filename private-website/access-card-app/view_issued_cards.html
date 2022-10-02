@@ -143,8 +143,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> -->
-        <!-- <script src="js/datatables-simple-demo.js"></script> -->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
         <script type="application/javascript" src="../js/webapp.js"></script>
         <script type="application/javascript">
@@ -152,26 +150,23 @@
                 $('#datatablesSimple').DataTable();
             });
 
-            // getActiveEmployees(25, null);
-            // let applicationBaseUri = "https://internal.sandybox.link:8443/";
-            let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
-            let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=10&status=active";
-            api_url = api_url.replace(":8443", "");
-            // if (startToken) {
-            //     api_url = api_url + "&start_key=" + startToken;
-            // }
-
-            $('#datatablesSimple').DataTable({
-                ajax: {
-                    crossdomain:true, 
-                    type:"GET",  
-                    url: api_url, 
-                    headers: {
-                        "Authorization": accessToken
-                    },
-                    dataSrc: 'Employees'
-                },
-            });
+            getActiveEmployees(25, null);
+            
+            
+            // let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
+            // let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=10&status=active";
+            // api_url = api_url.replace(":8443", "");
+            // $('#datatablesSimple').DataTable({
+            //     ajax: {
+            //         crossdomain:true, 
+            //         type:"GET",  
+            //         url: api_url, 
+            //         headers: {
+            //             "Authorization": accessToken
+            //         },
+            //         dataSrc: 'Employees'
+            //     },
+            // });
         </script>
     </body>
 </html>
