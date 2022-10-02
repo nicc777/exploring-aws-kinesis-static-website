@@ -250,7 +250,7 @@ var sideMenuHtml = `
 </a>
 `;
 
-function ajaxTest(){ 
+function accessTokenRefresh(){ 
     $.ajax(
         { 
             // crossdomain:true, 
@@ -280,4 +280,35 @@ function ajaxTest(){
     ); 
 }
 
-$(document).ready(ajaxTest);
+$(document).ready(accessTokenRefresh);
+
+function getActiveEmployees(qty, startToken) {
+
+    let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
+    if (accessToken) {
+        let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active"
+        if (startToken) {
+            api_url = api_url + "&start_key=" + startToken
+        }
+        $.ajax(
+            { 
+                // crossdomain:true, 
+                type:"GET",  
+                url: api_url, 
+                headers: {
+                    "Authorization": accessToken
+                },
+                success: function(r){ 
+                    console.log(JSON.stringify(r)); 
+                    
+                },
+                error: function(jqXHR, textStatus, errorThrown ) {
+                    console.log("textStatus=" + textStatus);
+                    console.log("errorThrown=" + errorThrown);
+                }
+            }
+        ); 
+    }
+
+    
+}
