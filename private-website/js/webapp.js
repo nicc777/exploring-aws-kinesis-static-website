@@ -284,79 +284,100 @@ $(document).ready(accessTokenRefresh);
 
 function getActiveEmployees(qty, startToken) {
 
-    let row_template = `<tr>
-    <td>__FIELD_01__</td>
-    <td>__FIELD_02__</td>
-    <td>__FIELD_03__</td>
-    <td>__FIELD_04__</td>
-    <td>__FIELD_05__</td>
-    <td>__FIELD_06__</td>
-    <td>__FIELD_07__</td>
-    <td>__FIELD_08__</td>
-    <td>__FIELD_09__</td>
-    <td>__FIELD_10__</td>
-</tr>`;
-
     let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
-    let rows = "";
-    var data = [];
-    if (accessToken) {
-        let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
-        api_url = api_url.replace(":8443", "");
-        if (startToken) {
-            api_url = api_url + "&start_key=" + startToken;
-        }
-        $.ajax(
-            { 
-                crossdomain:true, 
-                type:"GET",  
-                url: api_url, 
-                headers: {
-                    "Authorization": accessToken
-                },
-                success: function(r){ 
-                    console.log(JSON.stringify(r)); 
-                    for(var k in r.Employees) {
-                        let record = r.Employees[k];
-                        let data_record = [];
-                        console.log("RECORD: " + JSON.stringify(record));
-                        let templ = structuredClone(row_template);
-                        templ = templ.replace("__FIELD_01__", record.EmployeeId);
-                        templ = templ.replace("__FIELD_02__", record.PersonDepartment);
-                        templ = templ.replace("__FIELD_03__", record.PersonName);
-                        templ = templ.replace("__FIELD_04__", record.PersonSurname);
-                        templ = templ.replace("__FIELD_05__", record.ScannedStatus);
-                        templ = templ.replace("__FIELD_06__", record.ScannedBuildingIdx);
-                        templ = templ.replace("__FIELD_07__", record.CardIdx);
-                        templ = templ.replace("__FIELD_08__", record.CardStatus);
-                        templ = templ.replace("__FIELD_09__", record.CardIssuedTimestamp);
-                        templ = templ.replace("__FIELD_10__", record.CardIssuedBy);
-                        rows = rows + templ + "\n";
-                        data_record.push(record.EmployeeId);
-                        data_record.push(record.PersonDepartment);
-                        data_record.push(record.PersonName);
-                        data_record.push(record.PersonSurname);
-                        data_record.push(record.ScannedStatus);
-                        data_record.push(record.ScannedBuildingIdx);
-                        data_record.push(record.CardIdx);
-                        data_record.push(record.CardStatus);
-                        data_record.push(record.CardIssuedTimestamp);
-                        data_record.push(record.CardIssuedBy);
-                        data.push(data_record);
-
-                    }
-                    // $("#labTableData").html(rows);
-                    $('#datatablesSimple').DataTable( {
-                        data: data
-                    } );
-                },
-                error: function(jqXHR, textStatus, errorThrown ) {
-                    console.log("textStatus=" + textStatus);
-                    console.log("errorThrown=" + errorThrown);
-                }
-            }
-        ); 
+    let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
+    api_url = api_url.replace(":8443", "");
+    if (startToken) {
+        api_url = api_url + "&start_key=" + startToken;
     }
+    $('#datatablesSimple').dataTable( {
+        "ajax": {
+            crossdomain:true, 
+            type:"GET",  
+            url: api_url, 
+            headers: {
+                "Authorization": accessToken
+            },
+            "data": function ( d ) {
+                d.Employees;
+            }
+        }
+    });
+
+
+//     let row_template = `<tr>
+//     <td>__FIELD_01__</td>
+//     <td>__FIELD_02__</td>
+//     <td>__FIELD_03__</td>
+//     <td>__FIELD_04__</td>
+//     <td>__FIELD_05__</td>
+//     <td>__FIELD_06__</td>
+//     <td>__FIELD_07__</td>
+//     <td>__FIELD_08__</td>
+//     <td>__FIELD_09__</td>
+//     <td>__FIELD_10__</td>
+// </tr>`;
+
+    // let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
+    // let rows = "";
+    // var data = [];
+    // if (accessToken) {
+    //     let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
+    //     api_url = api_url.replace(":8443", "");
+    //     if (startToken) {
+    //         api_url = api_url + "&start_key=" + startToken;
+    //     }
+    //     $.ajax(
+    //         { 
+    //             crossdomain:true, 
+    //             type:"GET",  
+    //             url: api_url, 
+    //             headers: {
+    //                 "Authorization": accessToken
+    //             },
+    //             success: function(r){ 
+    //                 console.log(JSON.stringify(r)); 
+    //                 for(var k in r.Employees) {
+    //                     let record = r.Employees[k];
+    //                     let data_record = [];
+    //                     console.log("RECORD: " + JSON.stringify(record));
+    //                     let templ = structuredClone(row_template);
+    //                     templ = templ.replace("__FIELD_01__", record.EmployeeId);
+    //                     templ = templ.replace("__FIELD_02__", record.PersonDepartment);
+    //                     templ = templ.replace("__FIELD_03__", record.PersonName);
+    //                     templ = templ.replace("__FIELD_04__", record.PersonSurname);
+    //                     templ = templ.replace("__FIELD_05__", record.ScannedStatus);
+    //                     templ = templ.replace("__FIELD_06__", record.ScannedBuildingIdx);
+    //                     templ = templ.replace("__FIELD_07__", record.CardIdx);
+    //                     templ = templ.replace("__FIELD_08__", record.CardStatus);
+    //                     templ = templ.replace("__FIELD_09__", record.CardIssuedTimestamp);
+    //                     templ = templ.replace("__FIELD_10__", record.CardIssuedBy);
+    //                     rows = rows + templ + "\n";
+    //                     data_record.push(record.EmployeeId);
+    //                     data_record.push(record.PersonDepartment);
+    //                     data_record.push(record.PersonName);
+    //                     data_record.push(record.PersonSurname);
+    //                     data_record.push(record.ScannedStatus);
+    //                     data_record.push(record.ScannedBuildingIdx);
+    //                     data_record.push(record.CardIdx);
+    //                     data_record.push(record.CardStatus);
+    //                     data_record.push(record.CardIssuedTimestamp);
+    //                     data_record.push(record.CardIssuedBy);
+    //                     data.push(data_record);
+
+    //                 }
+    //                 // $("#labTableData").html(rows);
+    //                 $('#datatablesSimple').DataTable( {
+    //                     data: data
+    //                 } );
+    //             },
+    //             error: function(jqXHR, textStatus, errorThrown ) {
+    //                 console.log("textStatus=" + textStatus);
+    //                 console.log("errorThrown=" + errorThrown);
+    //             }
+    //         }
+    //     ); 
+    // }
 
     
 }
