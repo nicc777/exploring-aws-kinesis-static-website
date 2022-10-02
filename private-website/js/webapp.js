@@ -291,7 +291,7 @@ function getActiveEmployees(qty, startToken) {
         api_url = api_url + "&start_key=" + startToken;
     }
 
-    let data = [];
+    let data = null;
     if (accessToken) {
         let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
         api_url = api_url.replace(":8443", "");
@@ -308,23 +308,24 @@ function getActiveEmployees(qty, startToken) {
                 },
                 success: function(r){ 
                     console.log(JSON.stringify(r)); 
-                    for(var k in r.Employees) {
-                        let record = r.Employees[k];
-                        let data_record = [];
-                        console.log("RECORD: " + JSON.stringify(record));
-                        data_record.push(record.EmployeeId);
-                        data_record.push(record.PersonDepartment);
-                        data_record.push(record.PersonName);
-                        data_record.push(record.PersonSurname);
-                        data_record.push(record.ScannedStatus);
-                        data_record.push(record.ScannedBuildingIdx);
-                        data_record.push(record.CardIdx);
-                        data_record.push(record.CardStatus);
-                        data_record.push(record.CardIssuedTimestamp);
-                        data_record.push(record.CardIssuedBy);
-                        data.push(data_record);
+                    // for(var k in r.Employees) {
+                    //     let record = r.Employees[k];
+                    //     let data_record = [];
+                    //     console.log("RECORD: " + JSON.stringify(record));
+                    //     data_record.push(record.EmployeeId);
+                    //     data_record.push(record.PersonDepartment);
+                    //     data_record.push(record.PersonName);
+                    //     data_record.push(record.PersonSurname);
+                    //     data_record.push(record.ScannedStatus);
+                    //     data_record.push(record.ScannedBuildingIdx);
+                    //     data_record.push(record.CardIdx);
+                    //     data_record.push(record.CardStatus);
+                    //     data_record.push(record.CardIssuedTimestamp);
+                    //     data_record.push(record.CardIssuedBy);
+                    //     data.push(data_record);
 
-                    }
+                    // }
+                    data = structuredClone(r);
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     console.log("textStatus=" + textStatus);
@@ -336,7 +337,7 @@ function getActiveEmployees(qty, startToken) {
 
 
     $('#datatablesSimple').DataTable({
-        ajax: data,
+        ajax: data.Employees,
     });
 
 
