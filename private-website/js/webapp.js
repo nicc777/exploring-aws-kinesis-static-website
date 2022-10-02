@@ -307,7 +307,7 @@ function getActiveEmployees(qty, startToken) {
                     "Authorization": accessToken
                 },
                 success: function(r){ 
-                    console.log(JSON.stringify(r)); 
+                    // console.log(JSON.stringify(r)); 
                     for(var k in r.Employees) {
                         let record = r.Employees[k];
                         let data_record = [];
