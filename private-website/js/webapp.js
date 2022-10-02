@@ -335,7 +335,7 @@ function getActiveEmployees(qty, startToken) {
 
 
     $('#datatablesSimple').DataTable({
-        ajax: data.Employees,
+        ajax: data,
     });
 
 
