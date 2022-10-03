@@ -369,6 +369,7 @@ function getActiveEmployees() {
         console.log("Passing data to table: " + JSON.stringify(data));
         document.getElementById("labTableLoadSpinner").outerHTML = "";
 
+        createTableForActiveEmployees();
         var table = $('#datatablesSimple').DataTable();
  
         var tableData = data.data;
@@ -389,7 +390,7 @@ function getActiveEmployees() {
                 "Card Issued By":               record[9],
             } );
         }
-        createTableForActiveEmployees();
+        
         table.draw();
         if (data.start_key == null) {
             run_query = false;
