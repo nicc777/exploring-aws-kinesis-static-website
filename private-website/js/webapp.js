@@ -341,7 +341,7 @@ function createTableForActiveEmployees() {
     if (length(document.getElementById("labTableLoadSpinner").outerHTML) > 0) {
         document.getElementById("labTableLoadSpinner").outerHTML = "";
         $('#datatablesSimple').DataTable({
-            data: data.data,
+            data: [],
             columns: [
                 { title: 'Employee Id' },
                 { title: 'Department' },
