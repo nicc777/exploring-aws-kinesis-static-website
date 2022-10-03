@@ -366,12 +366,12 @@ function getActiveEmployees() {
     run_query = true;
     startToken = "";
     query_iterations = 0;
+    createTableForActiveEmployees();
     while (run_query) {
         query_iterations += 1;
         data = apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken)
         console.log("Passing data to table: " + JSON.stringify(data));
-
-        createTableForActiveEmployees();
+        
         var table = $('#datatablesSimple').DataTable();
  
         var tableData = data.data;
