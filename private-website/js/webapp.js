@@ -290,7 +290,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
         let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
         let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
         api_url = api_url.replace(":8443", "");
-        if (startToken) {
+        if (startToken.length > 0) {
             api_url = api_url + "&start_key=" + startToken;
         }
         if (accessToken) {
@@ -324,13 +324,12 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
                             ]);
                         }
 
-                        console.log("Start Key: " + JSON.stringify(r.LastEvaluatedKeyAsString));
-                        startToken = r.LastEvaluatedKeyAsString;
+                        console.log("Next Start Key: " + JSON.stringify(r.LastEvaluatedKeyAsString));
                         table.draw();
 
-                        if (startToken.length > 0) {
+                        if (r.LastEvaluatedKeyAsString.length > 0) {
                             console.log("Calling SELF again to fetch and render next batch of rows...");
-                            apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken, query_iterations);
+                            apiCallGetActiveEmployeesWithAccessCardStatus(25, r.LastEvaluatedKeyAsString, query_iterations);
                         } else {
                             console.log("FETCHED ALL DATA");
                             return;
