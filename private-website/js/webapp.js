@@ -400,6 +400,7 @@ function getActiveEmployees() {
             console.log("More than 20 loop iterations... Safety stop pulled !!! For this LAB we should not have this much data");
             run_query = false;
         }
+        console.log("TOTAL ITERATIONS: " + query_iterations);
     }
     
 
