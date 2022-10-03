@@ -294,7 +294,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
             let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
             api_url = api_url.replace(":8443", "");
             if (startToken.length > 0) {
-                api_url = api_url + "&start_key=" + startToken;
+                api_url = api_url + "&start_key=" + encodeURIComponent(startToken);
             }
             $.ajax(
                 { 
