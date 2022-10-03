@@ -312,7 +312,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
                         var table = $('#datatablesSimple').DataTable();
                         for(var k in r.Employees) {
                             let record = r.Employees[k];
-                            console.log("RECORD: " + JSON.stringify(record));
+                            // console.log("RECORD: " + JSON.stringify(record));
                             table.row.add( [
                                 record.EmployeeId,
                                 record.PersonDepartment,
@@ -333,8 +333,10 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
                         table.draw();
 
                         if (startToken.length > 0) {
+                            console.log("Calling SELF again to fetch and render next batch of rows...");
                             apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken, query_iterations);
                         } else {
+                            console.log("FETCHED ALL DATA");
                             return;
                         }
 
