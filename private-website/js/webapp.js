@@ -338,7 +338,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = ""
                             console.log("Calling SELF again to fetch and render next batch of rows...");
                             apiCallGetActiveEmployeesWithAccessCardStatus(50, r.LastEvaluatedKeyAsString, query_iterations, addedEmployeeIds);
                         } else {
-                            console.log("FETCHED ALL DATA AFTER " + query_iterations + " ITERATIONS");
+                            console.log("FETCHED ALL DATA AFTER " + query_iterations + " ITERATIONS"); 
                             return;
                         }
 
