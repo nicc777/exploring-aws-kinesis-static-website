@@ -250,6 +250,11 @@ var sideMenuHtml = `
 </a>
 `;
 
+function pageInit() {
+    accessTokenRefresh();
+    getReleaseVersionInfo();
+}
+
 function accessTokenRefresh(){ 
     $.ajax(
         { 
@@ -280,7 +285,7 @@ function accessTokenRefresh(){
     ); 
 }
 
-$(document).ready(accessTokenRefresh);
+$(document).ready(pageInit);
 
 
 function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = "", query_iterations = 1, addedEmployeeIds = []) {
@@ -386,4 +391,30 @@ function getActiveEmployees() {
     createTableForActiveEmployees();
     apiCallGetActiveEmployeesWithAccessCardStatus();
     
+}
+
+
+function getReleaseVersionInfo(){ 
+    $.ajax(
+        { 
+            // crossdomain:true, 
+            type:"GET",  
+            url: applicationBaseUri + "/release_version.txt", 
+            success: function(r){ 
+                console.log(JSON.stringify(r)); 
+                console.log(r); 
+                
+
+                // Update UI
+                // $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
+                // $("#labsMenu").html(sideMenuHtml);
+                // $("#labUsername").text(sessionStorage.getItem("accessTokenUsername"));
+            },
+            error: function(jqXHR, textStatus, errorThrown ) {
+                console.log("textStatus=" + textStatus);
+                console.log("errorThrown=" + errorThrown);
+                $("#labsAccessTokenLoaderCard").html(accessTokenLoadedErrorHtml);
+            }
+        }
+    ); 
 }
