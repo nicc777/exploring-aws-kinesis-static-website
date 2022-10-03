@@ -313,26 +313,27 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
                         for(var k in r.Employees) {
                             let record = r.Employees[k];
                             console.log("RECORD: " + JSON.stringify(record));
-                            table.row.add( {
-                                "Employee Id":                  record.EmployeeId,
-                                "Department":                   record.PersonDepartment,
-                                "Employee Name":                record.PersonName,
-                                "Employee Surname":             record.PersonSurname,
-                                "Currently at Office":          record.ScannedStatus,
-                                "Current Office Location ID":   record.ScannedBuildingIdx,
-                                "Latest Card ID":               record.CardIdx,
-                                "Latest Card Status":           record.CardStatus,
-                                "Card Issued Timestamp":        record.CardIssuedTimestamp,
-                                "Card Issued By":               record.CardIssuedBy,
-                            } );
+                            table.row.add( [
+                                record.EmployeeId,
+                                record.PersonDepartment,
+                                record.PersonName,
+                                record.PersonSurname,
+                                record.ScannedStatus,
+                                record.ScannedBuildingIdx,
+                                record.CardIdx,
+                                record.CardStatus,
+                                record.CardIssuedTimestamp,
+                                record.CardIssuedBy,
+                            ]);
                         }
 
                         // TODO Add the start_key
                         console.log("Start Key: " + JSON.stringify(r.LastEvaluatedKey));
                         table.draw();
 
-                        if (length(startToken) > 0) {
+                        if (startToken.length > 0) {
                             // TODO Repeat query
+                            apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken, query_iterations);
                         } else {
                             return;
                         }
