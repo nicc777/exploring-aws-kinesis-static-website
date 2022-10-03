@@ -338,24 +338,27 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty, startToken) {
 }
 
 function createTableForActiveEmployees() {
-    if (length(document.getElementById("labTableLoadSpinner").outerHTML) > 0) {
+    try {
         document.getElementById("labTableLoadSpinner").outerHTML = "";
-        $('#datatablesSimple').DataTable({
-            data: [],
-            columns: [
-                { title: 'Employee Id' },
-                { title: 'Department' },
-                { title: 'Employee Name' },
-                { title: 'Employee Surname' },
-                { title: 'Currently at Office' },
-                { title: 'Current Office Location ID' },
-                { title: 'Latest Card ID' },
-                { title: 'Latest Card Status' },
-                { title: 'Card Issued Timestamp' },
-                { title: 'Card Issued By' },
-            ],
-        });
+    } catch (error) {
+        console.error(error);
     }
+    
+    $('#datatablesSimple').DataTable({
+        data: [],
+        columns: [
+            { title: 'Employee Id' },
+            { title: 'Department' },
+            { title: 'Employee Name' },
+            { title: 'Employee Surname' },
+            { title: 'Currently at Office' },
+            { title: 'Current Office Location ID' },
+            { title: 'Latest Card ID' },
+            { title: 'Latest Card Status' },
+            { title: 'Card Issued Timestamp' },
+            { title: 'Card Issued By' },
+        ],
+    });
 }
 
 function getActiveEmployees() {
@@ -367,7 +370,6 @@ function getActiveEmployees() {
         query_iterations += 1;
         data = apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken)
         console.log("Passing data to table: " + JSON.stringify(data));
-        document.getElementById("labTableLoadSpinner").outerHTML = "";
 
         createTableForActiveEmployees();
         var table = $('#datatablesSimple').DataTable();
