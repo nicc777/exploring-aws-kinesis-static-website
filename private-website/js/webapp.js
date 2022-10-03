@@ -336,7 +336,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
 
                         if (r.LastEvaluatedKeyAsString.length > 0) {
                             console.log("Calling SELF again to fetch and render next batch of rows...");
-                            apiCallGetActiveEmployeesWithAccessCardStatus(25, r.LastEvaluatedKeyAsString, query_iterations);
+                            apiCallGetActiveEmployeesWithAccessCardStatus(25, r.LastEvaluatedKeyAsString, query_iterations, addedEmployeeIds);
                         } else {
                             console.log("FETCHED ALL DATA");
                             return;
