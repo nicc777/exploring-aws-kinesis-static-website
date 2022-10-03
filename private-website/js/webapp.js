@@ -402,7 +402,7 @@ function getReleaseVersionInfo(){
             url: applicationBaseUri + "/release_version.txt", 
             success: function(r){ 
                 console.log(r); 
-                 $("#labReleaseVersion").html = "Release: " + r;
+                 $("#labReleaseVersion").text("Release: " + r);
             },
             error: function(jqXHR, textStatus, errorThrown ) {
                 console.log("textStatus=" + textStatus);
