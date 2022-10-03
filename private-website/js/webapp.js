@@ -283,7 +283,7 @@ function accessTokenRefresh(){
 $(document).ready(accessTokenRefresh);
 
 
-function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = "", query_iterations = 1, addedEmployeeIds = []) {
+function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = "", query_iterations = 1, addedEmployeeIds = []) {
     if ( query_iterations < 20 ) {
         query_iterations += 1;
 
@@ -336,7 +336,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
 
                         if (r.LastEvaluatedKeyAsString.length > 0) {
                             console.log("Calling SELF again to fetch and render next batch of rows...");
-                            apiCallGetActiveEmployeesWithAccessCardStatus(25, r.LastEvaluatedKeyAsString, query_iterations, addedEmployeeIds);
+                            apiCallGetActiveEmployeesWithAccessCardStatus(50, r.LastEvaluatedKeyAsString, query_iterations, addedEmployeeIds);
                         } else {
                             console.log("FETCHED ALL DATA");
                             return;
