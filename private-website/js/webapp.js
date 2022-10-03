@@ -401,18 +401,12 @@ function getReleaseVersionInfo(){
             type:"GET",  
             url: applicationBaseUri + "/release_version.txt", 
             success: function(r){ 
-                console.log(JSON.stringify(r)); 
                 console.log(r); 
-                
-
-                // Update UI
-                 $("#labReleaseVersion").text = "Release: " + r;
-                
+                 $("#labReleaseVersion").html = "Release: " + r;
             },
             error: function(jqXHR, textStatus, errorThrown ) {
                 console.log("textStatus=" + textStatus);
                 console.log("errorThrown=" + errorThrown);
-                $("#labsAccessTokenLoaderCard").html(accessTokenLoadedErrorHtml);
             }
         }
     ); 
