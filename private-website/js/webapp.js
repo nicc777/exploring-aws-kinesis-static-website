@@ -406,9 +406,8 @@ function getReleaseVersionInfo(){
                 
 
                 // Update UI
-                // $("#labsAccessTokenLoaderCard").html(accessTokenLoadedSuccessHtml);
-                // $("#labsMenu").html(sideMenuHtml);
-                // $("#labUsername").text(sessionStorage.getItem("accessTokenUsername"));
+                 $("#labReleaseVersion").text = "Release: " + r;
+                
             },
             error: function(jqXHR, textStatus, errorThrown ) {
                 console.log("textStatus=" + textStatus);
