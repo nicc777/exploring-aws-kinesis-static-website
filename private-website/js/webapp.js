@@ -283,58 +283,73 @@ function accessTokenRefresh(){
 $(document).ready(accessTokenRefresh);
 
 
-function apiCallGetActiveEmployeesWithAccessCardStatus(qty, startToken) {
-    let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
-    let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
-    api_url = api_url.replace(":8443", "");
-    result = { data: [], start_key: ''};
-    if (startToken) {
-        api_url = api_url + "&start_key=" + startToken;
-    }
-    if (accessToken) {
+function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = "", query_iterations = 1) {
+    if ( query_iterations < 20 ) {
+        query_iterations += 1;
+
+        let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
         let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
         api_url = api_url.replace(":8443", "");
         if (startToken) {
             api_url = api_url + "&start_key=" + startToken;
         }
-        $.ajax(
-            { 
-                crossdomain:true, 
-                type:"GET",  
-                url: api_url, 
-                headers: {
-                    "Authorization": accessToken
-                },
-                success: function(r){ 
-                    // console.log(JSON.stringify(r)); 
-                    for(var k in r.Employees) {
-                        let record = r.Employees[k];
-                        let data_record = [];
-                        console.log("RECORD: " + JSON.stringify(record));
-                        data_record.push(record.EmployeeId);
-                        data_record.push(record.PersonDepartment);
-                        data_record.push(record.PersonName);
-                        data_record.push(record.PersonSurname);
-                        data_record.push(record.ScannedStatus);
-                        data_record.push(record.ScannedBuildingIdx);
-                        data_record.push(record.CardIdx);
-                        data_record.push(record.CardStatus);
-                        data_record.push(record.CardIssuedTimestamp);
-                        data_record.push(record.CardIssuedBy);
-                        result.data.push(data_record);
-                    }
-
-                    // TODO Add the start_key
-                    console.log("Start Key: " + JSON.stringify(r.LastEvaluatedKey));
-                },
-                error: function(jqXHR, textStatus, errorThrown ) {
-                    console.log("textStatus=" + textStatus);
-                    console.log("errorThrown=" + errorThrown);
-                }
+        if (accessToken) {
+            let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
+            api_url = api_url.replace(":8443", "");
+            if (startToken) {
+                api_url = api_url + "&start_key=" + startToken;
             }
-        ); 
+            $.ajax(
+                { 
+                    crossdomain:true, 
+                    type:"GET",  
+                    url: api_url, 
+                    headers: {
+                        "Authorization": accessToken
+                    },
+                    success: function(r){ 
+                        // console.log(JSON.stringify(r)); 
+                        var table = $('#datatablesSimple').DataTable();
+                        for(var k in r.Employees) {
+                            let record = r.Employees[k];
+                            console.log("RECORD: " + JSON.stringify(record));
+                            table.row.add( {
+                                "Employee Id":                  record.EmployeeId,
+                                "Department":                   record.PersonDepartment,
+                                "Employee Name":                record.PersonName,
+                                "Employee Surname":             record.PersonSurname,
+                                "Currently at Office":          record.ScannedStatus,
+                                "Current Office Location ID":   record.ScannedBuildingIdx,
+                                "Latest Card ID":               record.CardIdx,
+                                "Latest Card Status":           record.CardStatus,
+                                "Card Issued Timestamp":        record.CardIssuedTimestamp,
+                                "Card Issued By":               record.CardIssuedBy,
+                            } );
+                        }
+
+                        // TODO Add the start_key
+                        console.log("Start Key: " + JSON.stringify(r.LastEvaluatedKey));
+                        table.draw();
+
+                        if (length(startToken) > 0) {
+                            // TODO Repeat query
+                        } else {
+                            return;
+                        }
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown ) {
+                        console.log("textStatus=" + textStatus);
+                        console.log("errorThrown=" + errorThrown);
+                    }
+                }
+            ); 
+        }
+
+    } else {
+        console.log("More than 20 loop iterations... Safety stop pulled !!! For this LAB we should not have this much data");
     }
-    return result;
+    
 }
 
 function createTableForActiveEmployees() {
@@ -363,46 +378,8 @@ function createTableForActiveEmployees() {
 
 function getActiveEmployees() {
 
-    run_query = true;
-    startToken = "";
-    query_iterations = 0;
     createTableForActiveEmployees();
-    while (run_query) {
-        query_iterations += 1;
-        data = apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken)
-        console.log("Passing data to table: " + JSON.stringify(data));
-        
-        var table = $('#datatablesSimple').DataTable();
- 
-        var tableData = data.data;
-        var recordQty = tableData.length;
-        for (var i = 0; i < recordQty; i++) {
-            // console.log(tableData[i]);
-            record = tableData[i];
-            table.row.add( {
-                "Employee Id":                  record[0],
-                "Department":                   record[1],
-                "Employee Name":                record[2],
-                "Employee Surname":             record[3],
-                "Currently at Office":          record[4],
-                "Current Office Location ID":   record[5],
-                "Latest Card ID":               record[6],
-                "Latest Card Status":           record[7],
-                "Card Issued Timestamp":        record[8],
-                "Card Issued By":               record[9],
-            } );
-        }
-        
-        table.draw();
-        if (data.start_key == null) {
-            run_query = false;
-        } else if (query_iterations > 20) {
-            console.log("More than 20 loop iterations... Safety stop pulled !!! For this LAB we should not have this much data");
-            run_query = false;
-        }
-        console.log("TOTAL ITERATIONS: " + query_iterations);
-    }
-    
+    apiCallGetActiveEmployeesWithAccessCardStatus();
 
 
     // let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
