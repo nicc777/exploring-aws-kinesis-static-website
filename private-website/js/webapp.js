@@ -328,11 +328,11 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
                         }
 
                         // TODO Add the start_key
-                        console.log("Start Key: " + JSON.stringify(r.LastEvaluatedKey));
+                        console.log("Start Key: " + JSON.stringify(r.LastEvaluatedKeyAsString));
+                        startToken = r.LastEvaluatedKeyAsString;
                         table.draw();
 
                         if (startToken.length > 0) {
-                            // TODO Repeat query
                             apiCallGetActiveEmployeesWithAccessCardStatus(25, startToken, query_iterations);
                         } else {
                             return;
