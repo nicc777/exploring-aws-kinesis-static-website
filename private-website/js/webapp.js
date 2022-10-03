@@ -290,12 +290,12 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
         let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
         let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
         api_url = api_url.replace(":8443", "");
-        if (startToken.length > 0) {
-            api_url = api_url + "&start_key=" + startToken;
-        }
         if (accessToken) {
             let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employees?qty=" + qty + "&status=active";
             api_url = api_url.replace(":8443", "");
+            if (startToken.length > 0) {
+                api_url = api_url + "&start_key=" + startToken;
+            }
             $.ajax(
                 { 
                     crossdomain:true, 
