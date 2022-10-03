@@ -283,7 +283,7 @@ function accessTokenRefresh(){
 $(document).ready(accessTokenRefresh);
 
 
-function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = "", query_iterations = 1) {
+function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = "", query_iterations = 1, addedEmployeeIds = []) {
     if ( query_iterations < 20 ) {
         query_iterations += 1;
 
@@ -310,18 +310,25 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 25, startToken = ""
                         for(var k in r.Employees) {
                             let record = r.Employees[k];
                             // console.log("RECORD: " + JSON.stringify(record));
-                            table.row.add( [
-                                record.EmployeeId,
-                                record.PersonDepartment,
-                                record.PersonName,
-                                record.PersonSurname,
-                                record.ScannedStatus,
-                                record.ScannedBuildingIdx,
-                                record.CardIdx,
-                                record.CardStatus,
-                                record.CardIssuedTimestamp,
-                                record.CardIssuedBy,
-                            ]);
+                            if (addedEmployeeIds.includes(record.EmployeeId) ) {
+                                console.log("Record for employee ID " + record.EmployeeId + " was already added to the table - skipping...");
+                            } else {
+                                table.row.add( [
+                                    record.EmployeeId,
+                                    record.PersonDepartment,
+                                    record.PersonName,
+                                    record.PersonSurname,
+                                    record.ScannedStatus,
+                                    record.ScannedBuildingIdx,
+                                    record.CardIdx,
+                                    record.CardStatus,
+                                    record.CardIssuedTimestamp,
+                                    record.CardIssuedBy,
+                                ]);
+                                addedEmployeeIds.push(record.EmployeeId);
+                            }
+
+                            
                         }
 
                         console.log("Next Start Key: " + JSON.stringify(r.LastEvaluatedKeyAsString));
