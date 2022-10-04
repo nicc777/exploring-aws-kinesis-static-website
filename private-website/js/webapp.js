@@ -311,7 +311,8 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
             hour: '2-digit',
             minute: '2-digit',
             timeZone: 'UTC',
-            timeZoneName: 'long'
+            timeZoneName: 'shortOffset',
+            hour12: false
         };
         return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-GB', options)
         // var time = new Date(this._cardIssuedTimestamp * 1000);
