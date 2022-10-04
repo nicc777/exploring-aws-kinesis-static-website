@@ -303,16 +303,27 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
     this.cardIssuedTimestamp = function() {
         // return new Date(this._cardIssuedTimestamp * 1000).toISOString()
         // return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
-        var time = new Date(this._cardIssuedTimestamp * 1000);
-        var day = time.getDate();
-        var month = time.getMonth()+1;
-        var year = time.getFullYear();
-        var hours = time.getHours();
-        var minutes = time.getMinutes();
-        var seconds = time.getSeconds();
+        let options = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'UTC',
+            timeZoneName: 'long'
+        };
+        return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-UK', options)
+        // var time = new Date(this._cardIssuedTimestamp * 1000);
+        // var day = time.getDate();
+        // var month = time.getMonth()+1;
+        // var year = time.getFullYear();
+        // var hours = time.getHours();
+        // var minutes = time.getMinutes();
+        // var seconds = time.getSeconds();
 
-        var niceDate = year +'-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        return niceDate;
+        // var niceDate = year +'-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        // return niceDate;
     }
 
     this.scannedBuildingIdx = function() {
