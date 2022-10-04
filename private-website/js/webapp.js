@@ -301,6 +301,7 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
     this.cardIssuedBy = cardIssuedBy
 
     this.cardIssuedTimestamp = function() {
+        // REFERENCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options
         // return new Date(this._cardIssuedTimestamp * 1000).toISOString()
         // return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
         let options = { 
@@ -315,16 +316,7 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
             hour12: false
         };
         return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-GB', options)
-        // var time = new Date(this._cardIssuedTimestamp * 1000);
-        // var day = time.getDate();
-        // var month = time.getMonth()+1;
-        // var year = time.getFullYear();
-        // var hours = time.getHours();
-        // var minutes = time.getMinutes();
-        // var seconds = time.getSeconds();
 
-        // var niceDate = year +'-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        // return niceDate;
     }
 
     this.scannedBuildingIdx = function() {
