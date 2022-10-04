@@ -327,7 +327,8 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = ""
                                     record.ScannedBuildingIdx,
                                     record.CardIdx,
                                     record.CardStatus,
-                                    new Date(record.CardIssuedTimestamp * 1000).toISOString(),
+                                    // new Date(record.CardIssuedTimestamp * 1000).toISOString(),
+                                    record.CardIssuedTimestamp,
                                     record.CardIssuedBy,
                                 ]);
                                 addedEmployeeIds.push(record.EmployeeId);
@@ -380,7 +381,11 @@ function createTableForActiveEmployees() {
             { title: 'Current Office Location ID' },
             { title: 'Latest Card ID' },
             { title: 'Latest Card Status' },
-            { title: 'Card Issued Timestamp' },
+            { 
+                title: 'Card Issued Timestamp',
+                data: null,
+                render: DataTable.render.datetime()
+            },
             { title: 'Card Issued By' },
         ],
     });
