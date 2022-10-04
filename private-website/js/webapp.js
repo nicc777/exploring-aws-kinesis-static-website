@@ -319,7 +319,14 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
     }
 
     this.cardStatus = function() {
-        return this._cardStatus.charAt(0).toUpperCase() + this._cardStatus.slice(1);
+        // issued|lost|stolen|expired|revoked
+        let label = this._cardStatus.charAt(0).toUpperCase() + this._cardStatus.slice(1);
+        if (this._cardStatus == "issued") {
+            return "<button type=\"button\" class=\"btn btn-success\">" + label + "</button>"
+        } else if (this._cardStatus == "expired") {
+            return "<button type=\"button\" class=\"btn btn-warning\">" + label + "</button>"
+        }
+        return "<button type=\"button\" class=\"btn btn-danger\">" + label + "</button>"
     }
 
 }
@@ -356,18 +363,6 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = ""
                                 console.log("Record for employee ID " + record.EmployeeId + " was already added to the table - skipping...");
                             } else {
                                 table.row.add( 
-                                    // [
-                                    //     record.EmployeeId,
-                                    //     record.PersonDepartment,
-                                    //     record.PersonName,
-                                    //     record.PersonSurname,
-                                    //     record.ScannedStatus,
-                                    //     record.ScannedBuildingIdx,
-                                    //     record.CardIdx,
-                                    //     record.CardStatus,
-                                    //     new Date(record.CardIssuedTimestamp * 1000).toISOString(),
-                                    //     record.CardIssuedBy,
-                                    // ]
                                     new IssuedAccessCardRecord(
                                         record.EmployeeId,
                                         record.PersonDepartment,
