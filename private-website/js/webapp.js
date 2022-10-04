@@ -288,6 +288,43 @@ function accessTokenRefresh(){
 $(document).ready(pageInit);
 
 
+function IssuedAccessCardRecord(employeeId, personDepartment, personName, personSurname, scannedStatus, scannedBuildingIdx, cardIdx, cardStatus, cardIssuedTimestamp, cardIssuedBy) {
+    this.employeeId = employeeId
+    this.personDepartment = personDepartment
+    this.personName = personName
+    this.personSurname = personSurname
+    this._scannedStatus = scannedStatus
+    this._scannedBuildingIdx = scannedBuildingIdx
+    this.cardIdx = cardIdx
+    this._cardStatus = cardStatus
+    this._cardIssuedTimestamp = cardIssuedTimestamp
+    this.cardIssuedBy = cardIssuedBy
+
+    this.cardIssuedTimestamp = function() {
+        return new Date(this._cardIssuedTimestamp * 1000).toISOString()
+    }
+
+    this.scannedBuildingIdx = function() {
+        if (this._scannedBuildingIdx == "null") {
+            return "Not at office"
+        }
+        return this._scannedBuildingIdx;
+    }
+
+    this.scannedStatus = function() {
+        if (this._scannedStatus == "scanned-out") {
+            return "Not at Office"
+        }
+        return "In Office"
+    }
+
+    this.cardStatus = function() {
+        return this._cardStatus.charAt(0).toUpperCase() + this._cardStatus.slice(1);
+    }
+
+}
+
+
 function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = "", query_iterations = 1, addedEmployeeIds = []) {
     if ( query_iterations < 20 ) {
         query_iterations += 1;
@@ -318,19 +355,32 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = ""
                             if (addedEmployeeIds.includes(record.EmployeeId) ) {
                                 console.log("Record for employee ID " + record.EmployeeId + " was already added to the table - skipping...");
                             } else {
-                                table.row.add( [
-                                    record.EmployeeId,
-                                    record.PersonDepartment,
-                                    record.PersonName,
-                                    record.PersonSurname,
-                                    record.ScannedStatus,
-                                    record.ScannedBuildingIdx,
-                                    record.CardIdx,
-                                    record.CardStatus,
-                                    // new Date(record.CardIssuedTimestamp * 1000).toISOString(),
-                                    record.CardIssuedTimestamp,
-                                    record.CardIssuedBy,
-                                ]);
+                                table.row.add( 
+                                    // [
+                                    //     record.EmployeeId,
+                                    //     record.PersonDepartment,
+                                    //     record.PersonName,
+                                    //     record.PersonSurname,
+                                    //     record.ScannedStatus,
+                                    //     record.ScannedBuildingIdx,
+                                    //     record.CardIdx,
+                                    //     record.CardStatus,
+                                    //     new Date(record.CardIssuedTimestamp * 1000).toISOString(),
+                                    //     record.CardIssuedBy,
+                                    // ]
+                                    new IssuedAccessCardRecord(
+                                        record.EmployeeId,
+                                        record.PersonDepartment,
+                                        record.PersonName,
+                                        record.PersonSurname,
+                                        record.ScannedStatus,
+                                        record.ScannedBuildingIdx,
+                                        record.CardIdx,
+                                        record.CardStatus,
+                                        record.CardIssuedTimestamp, 
+                                        record.CardIssuedBy
+                                    )
+                                );
                                 addedEmployeeIds.push(record.EmployeeId);
                             }
 
@@ -373,20 +423,56 @@ function createTableForActiveEmployees() {
     $('#datatablesSimple').DataTable({
         data: [],
         columns: [
-            { title: 'Employee Id' },
-            { title: 'Department' },
-            { title: 'Employee Name' },
-            { title: 'Employee Surname' },
-            { title: 'Currently at Office' },
-            { title: 'Current Office Location ID' },
-            { title: 'Latest Card ID' },
-            { title: 'Latest Card Status' },
+            { 
+                title: 'Employee Id',
+                data: null,
+                render: 'employeeId'
+            },
+            { 
+                title: 'Department',
+                data: null,
+                render: 'personDepartment'
+            },
+            { 
+                title: 'Employee Name',
+                data: null,
+                render: 'personName'
+            },
+            { 
+                title: 'Employee Surname',
+                data: null,
+                render: 'personSurname'
+            },
+            { 
+                title: 'Currently at Office',
+                data: null,
+                render: 'scannedStatus'
+            },
+            { 
+                title: 'Current Office Location ID',
+                data: null,
+                render: 'scannedBuildingIdx'
+            },
+            { 
+                title: 'Latest Card ID',
+                data: null,
+                render: 'cardIdx'
+            },
+            { 
+                title: 'Latest Card Status',
+                data: null,
+                render: 'cardStatus'
+            },
             { 
                 title: 'Card Issued Timestamp',
                 data: null,
-                render: DataTable.render.datetime()
+                render: 'cardIssuedTimestamp'
             },
-            { title: 'Card Issued By' },
+            { 
+                title: 'Card Issued By',
+                data: null,
+                render: 'cardIssuedBy'
+            },
         ],
     });
 }
