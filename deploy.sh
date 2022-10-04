@@ -40,8 +40,8 @@ check_dir $PRIVATE_BASE
 check_dir $PUBLIC_BASE
 
 aws cloudformation list-exports --output json --region eu-central-1 > /tmp/cf-exports.json
-cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="EmployeeCognitoStack-CognitoEmployeeAuthorizerUserPoolId")' | jq '.Value' | awk -F\" '{print $2}' > /tmp/employee_userpool_id
-cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="EmployeeCognitoStack-CognitoEmployeeAuthorizerUserPoolClientId")' | jq '.Value' | awk -F\" '{print $2}' > /tmp/employee_client_id
+cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="Lab3EmployeeCognitoStack-CognitoEmployeeAuthorizerUserPoolId")' | jq '.Value' | awk -F\" '{print $2}' > /tmp/employee_userpool_id
+cat /tmp/cf-exports.json | jq '.Exports[] | select(.Name=="Lab3EmployeeCognitoStack-CognitoEmployeeAuthorizerUserPoolClientId")' | jq '.Value' | awk -F\" '{print $2}' > /tmp/employee_client_id
 
 CLIENT_ID=`cat /tmp/employee_client_id`
 sed -i "s/__CLIENT_ID__/$CLIENT_ID/g" private-website/js/webapp.js
