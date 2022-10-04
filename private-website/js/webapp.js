@@ -313,7 +313,7 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
             timeZone: 'UTC',
             timeZoneName: 'long'
         };
-        return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-UK', options)
+        return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-GB', options)
         // var time = new Date(this._cardIssuedTimestamp * 1000);
         // var day = time.getDate();
         // var month = time.getMonth()+1;
