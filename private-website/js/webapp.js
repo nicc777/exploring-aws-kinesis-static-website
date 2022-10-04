@@ -307,7 +307,7 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
         var day = time.getDate();
         var month = time.getMonth()+1;
         var year = time.getFullYear();
-        var hours = time.getMinutes();
+        var hours = time.getHours();
         var minutes = time.getMinutes();
         var seconds = time.getSeconds();
 
