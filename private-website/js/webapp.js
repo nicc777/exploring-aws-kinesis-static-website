@@ -77,6 +77,7 @@ function logoutFunction() {
     // var logoutUrl = "https://" + cognitoAuthDomain + "/logout?client_id=" + cognitoClientId + "&logout_uri=" + applicationBaseUri + postLogoutRedirectPage + "&redirect_uri=" + applicationBaseUri + postLogoutRedirectPage;
     // var logoutUrl = "https://" + cognitoAuthDomain + "/logout?client_id=" + cognitoClientId + "&logout_uri=" + encodeURIComponent(applicationBaseUri + postLogoutRedirectPage);
     var logoutUrl = "https://" + cognitoAuthDomain + "/logout?client_id=" + cognitoClientId + "&logout_uri=" + applicationBaseUri + postLogoutRedirectPage;
+    console.log("FINAL logoutUrl: " + logoutUrl);
     window.location.replace(logoutUrl);
 }
 
