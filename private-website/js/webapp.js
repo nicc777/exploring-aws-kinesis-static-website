@@ -301,7 +301,8 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
     this.cardIssuedBy = cardIssuedBy
 
     this.cardIssuedTimestamp = function() {
-        return new Date(this._cardIssuedTimestamp * 1000).toISOString()
+        // return new Date(this._cardIssuedTimestamp * 1000).toISOString()
+        return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
     }
 
     this.scannedBuildingIdx = function() {
