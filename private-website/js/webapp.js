@@ -302,7 +302,17 @@ function IssuedAccessCardRecord(employeeId, personDepartment, personName, person
 
     this.cardIssuedTimestamp = function() {
         // return new Date(this._cardIssuedTimestamp * 1000).toISOString()
-        return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
+        // return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
+        var time = new Date(this._cardIssuedTimestamp * 1000);
+        var day = time.getDate();
+        var month = time.getMonth()+1;
+        var year = time.getFullYear();
+        var hours = time.getMinutes();
+        var minutes = time.getMinutes();
+        var seconds = time.getSeconds();
+
+        var niceDate = year +'-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        return niceDate;
     }
 
     this.scannedBuildingIdx = function() {
