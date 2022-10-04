@@ -327,7 +327,7 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = ""
                                     record.ScannedBuildingIdx,
                                     record.CardIdx,
                                     record.CardStatus,
-                                    record.CardIssuedTimestamp,
+                                    new Date(record.CardIssuedTimestamp * 1000).toISOString(),
                                     record.CardIssuedBy,
                                 ]);
                                 addedEmployeeIds.push(record.EmployeeId);
