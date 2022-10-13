@@ -246,7 +246,7 @@ var sideMenuHtml = `
     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
     View Issued Access Cards
 </a>
-<a class="nav-link" href="index.html">
+<a class="nav-link" href="link_card.html">
     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
     Link Access Card
 </a>
