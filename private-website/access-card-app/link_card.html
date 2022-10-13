@@ -81,7 +81,7 @@
                                       <input type="text" class="form-control" id="lab3EmployeeId1" aria-describedby="empnrHelp">
                                       <div id="empnrHelp" class="form-text">Use a valid employee ID</div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" onclick="lookupEmployeeBtnClick()">Submit</button>
+                                    <button id="lab3EmployeeLookupBtn" type="submit" class="btn btn-primary" onclick="lookupEmployeeBtnClick()">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -108,6 +108,7 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
         <script type="application/javascript" src="../js/webapp.js"></script>
         <script type="application/javascript">
+            // This prevents the page from refreshing/reloading when the Submit button is clicked
             $("#lab3EmployeeLookupForm").submit(function(e) {
                 e.preventDefault();
             });
