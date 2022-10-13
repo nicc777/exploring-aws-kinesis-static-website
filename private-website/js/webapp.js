@@ -517,8 +517,9 @@ function getReleaseVersionInfo(){
 
 
 function lookupEmployeeBtnClick() {
-    $('#lab3EmployeeLookupBtn').prop('disabled', true);
-    $('#lab3InfoMessage').prop('style', 'block');
     let employee_id = document.getElementById("lab3EmployeeId1").value;
+    $('#lab3EmployeeLookupBtn').prop('disabled', true);
+    document.getElementById("lab3InfoMessage").text = "Looking up employee ID " + employee_id;
+    $('#lab3InfoMessage').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
 }
