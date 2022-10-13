@@ -514,3 +514,8 @@ function getReleaseVersionInfo(){
         }
     ); 
 }
+
+
+function lookupEmployeeBtnClick() {
+    console.log("Looking up employee by Employee Number");
+}
