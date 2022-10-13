@@ -525,6 +525,9 @@ function lookupEmployeeBtnClick() {
     console.log("Looking up employee by Employee Number: " + employee_id);
 
 
+    // TODO look at https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#setting_and_clearing_timeouts on how I can timeout a lookup and then display a warning message
+
+
     /*
         If a user is LINKED:
 
