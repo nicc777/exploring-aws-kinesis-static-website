@@ -84,7 +84,7 @@
                                 WARNING MESSAGE
                             </div>
                         </div>
-                        <!-- TODO add employee lookup form  -->
+                        <!-- employee lookup form  -->
                         <div class="card mb-4">
                             <div class="card-body">
                                 <form id="lab3EmployeeLookupForm">
@@ -95,6 +95,24 @@
                                     </div>
                                     <button id="lab3EmployeeLookupBtn" type="submit" class="btn btn-primary" onclick="lookupEmployeeBtnClick()">Submit</button>
                                 </form>
+                            </div>
+                        </div>
+                        <!-- TODO - Employee View Table -->
+                        <div class="card mb-4">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-table me-1"></i>
+                                    Employees Details
+                                </div>
+                                <div class="card-body">
+                                    <table id="datatablesSimple">
+                                        <div class="spinner-border text-secondary" role="status" id="labTableLoadSpinner">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </table>
+                                    <!-- <br />
+                                    <button type="button" class="btn btn-light" onclick="getActiveEmployees()">Force Reload Again</button> -->
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -522,4 +522,37 @@ function lookupEmployeeBtnClick() {
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
     $('#lab3InfoMessage').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
+
+
+    /*
+        If a user is LINKED:
+
+            $ curl -H "Authorization: ${JWT_TOKEN}" https://$API_DOMAIN/access-card-app/employee/$EMP_ID/access-card-status
+            {
+                "AccessCardLinked": true, 
+                "EmployeeStatus": "Active", 
+                "Name": "Name100000000003", 
+                "Surname": "Surname100000000003", 
+                "AccessCardData": {
+                    "1665546180": {
+                        "CardId": "100000000118", 
+                        "IssuedBy": "SYSTEM", 
+                        "CardStatus": "issued"
+                    }
+                }
+            }
+
+        A person busy onboarding:
+
+        $ curl -H "Authorization: ${JWT_TOKEN}" https://$API_DOMAIN/access-card-app/employee/$EMP_ID/access-card-status
+        {
+            "AccessCardLinked": false, 
+            "EmployeeStatus": "Onboarding", 
+            "Name": "Name100000000103", 
+            "Surname": "Surname100000000103", 
+            "AccessCardData": {}
+        }
+    */
+
+
 }
