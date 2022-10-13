@@ -521,6 +521,7 @@ function lookupEmployeeBtnClick() {
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
     $('#lab3InfoMessage').prop('style', 'block');
+    $('#lab3EmployeeInfoTable').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
 
 
