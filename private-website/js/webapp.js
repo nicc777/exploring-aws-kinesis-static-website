@@ -529,13 +529,11 @@ function resetMessageBanners() {
 
 function lookupEmployeeBtnClick() {
     resetMessageBanners();
-
-
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
-    $('#lab3InfoMessage').prop('display', 'block');
-    $('#lab3EmployeeInfoTable').prop('display', 'block');
+    $('#lab3InfoMessage').prop('style', 'block');
+    $('#lab3EmployeeInfoTable').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
     ajaxGetCardStatus(employee_id);
 
