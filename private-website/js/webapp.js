@@ -521,10 +521,10 @@ function getReleaseVersionInfo(){
 
 
 function resetMessageBanners() {
-    $('#lab3InfoMessage').prop('display', 'none');
-    $('#lab3AlertMessage').prop('display', 'none');
-    $('#lab3SuccessMessage').prop('display', 'none');
-    $('#lab3WarningMessage').prop('display', 'none');
+    $('#lab3InfoMessage').prop('style', 'display: none;');
+    $('#lab3AlertMessage').prop('style', 'display: none;');
+    $('#lab3SuccessMessage').prop('style', 'display: none;');
+    $('#lab3WarningMessage').prop('style', 'display: none;');
 }
 
 function lookupEmployeeBtnClick() {
