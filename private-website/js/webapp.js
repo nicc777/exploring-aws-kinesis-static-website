@@ -290,62 +290,64 @@ function accessTokenRefresh(){
 $(document).ready(pageInit);
 
 
-function IssuedAccessCardRecord(employeeId, personDepartment, personName, personSurname, scannedStatus, scannedBuildingIdx, cardIdx, cardStatus, cardIssuedTimestamp, cardIssuedBy) {
-    this.employeeId = employeeId
-    this.personDepartment = personDepartment
-    this.personName = personName
-    this.personSurname = personSurname
-    this._scannedStatus = scannedStatus
-    this._scannedBuildingIdx = scannedBuildingIdx
-    this.cardIdx = cardIdx
-    this._cardStatus = cardStatus
-    this._cardIssuedTimestamp = cardIssuedTimestamp
-    this.cardIssuedBy = cardIssuedBy
+class IssuedAccessCardRecord {
+    constructor(employeeId, personDepartment = null, personName, personSurname, scannedStatus = null, scannedBuildingIdx = null, cardIdx = null, cardStatus = null, cardIssuedTimestamp = null, cardIssuedBy = null) {
+        this.employeeId = employeeId;
+        this.personDepartment = personDepartment;
+        this.personName = personName;
+        this.personSurname = personSurname;
+        this._scannedStatus = scannedStatus;
+        this._scannedBuildingIdx = scannedBuildingIdx;
+        this.cardIdx = cardIdx;
+        this._cardStatus = cardStatus;
+        this._cardIssuedTimestamp = cardIssuedTimestamp;
+        this.cardIssuedBy = cardIssuedBy;
 
-    this.cardIssuedTimestamp = function() {
-        // REFERENCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options
-        // return new Date(this._cardIssuedTimestamp * 1000).toISOString()
-        // return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
-        let options = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'UTC',
-            timeZoneName: 'shortOffset',
-            hour12: false
+        this.cardIssuedTimestamp = function () {
+            // REFERENCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options
+            // return new Date(this._cardIssuedTimestamp * 1000).toISOString()
+            // return new Date(this._cardIssuedTimestamp * 1000).toLocaleString()
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'UTC',
+                timeZoneName: 'shortOffset',
+                hour12: false
+            };
+            return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-GB', options);
+
         };
-        return new Date(this._cardIssuedTimestamp * 1000).toLocaleString('en-GB', options)
+
+        this.scannedBuildingIdx = function () {
+            if (this._scannedBuildingIdx == "null") {
+                return "Not at office";
+            }
+            return this._scannedBuildingIdx;
+        };
+
+        this.scannedStatus = function () {
+            if (this._scannedStatus == "scanned-out") {
+                return "Not at Office";
+            }
+            return "In Office";
+        };
+
+        this.cardStatus = function () {
+            // issued|lost|stolen|expired|revoked
+            let label = this._cardStatus.charAt(0).toUpperCase() + this._cardStatus.slice(1);
+            if (this._cardStatus == "issued") {
+                return "<button type=\"button\" class=\"btn btn-success\">" + label + "</button>";
+            } else if (this._cardStatus == "expired") {
+                return "<button type=\"button\" class=\"btn btn-warning\">" + label + "</button>";
+            }
+            return "<button type=\"button\" class=\"btn btn-danger\">" + label + "</button>";
+        };
 
     }
-
-    this.scannedBuildingIdx = function() {
-        if (this._scannedBuildingIdx == "null") {
-            return "Not at office"
-        }
-        return this._scannedBuildingIdx;
-    }
-
-    this.scannedStatus = function() {
-        if (this._scannedStatus == "scanned-out") {
-            return "Not at Office"
-        }
-        return "In Office"
-    }
-
-    this.cardStatus = function() {
-        // issued|lost|stolen|expired|revoked
-        let label = this._cardStatus.charAt(0).toUpperCase() + this._cardStatus.slice(1);
-        if (this._cardStatus == "issued") {
-            return "<button type=\"button\" class=\"btn btn-success\">" + label + "</button>"
-        } else if (this._cardStatus == "expired") {
-            return "<button type=\"button\" class=\"btn btn-warning\">" + label + "</button>"
-        }
-        return "<button type=\"button\" class=\"btn btn-danger\">" + label + "</button>"
-    }
-
 }
 
 
@@ -579,6 +581,25 @@ function ajaxGetCardStatus(employeeId){
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
                     console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
                     createTableForEmployeeDetails();
+                    var table = $('#lab3EmployeeDetailsTable').DataTable();
+                    cardId = "Not Issued Yet";
+                    issuedBy = "-";
+                    cardStatus = "Not Issued";
+                    issuedTimestamp = "-";
+                    table.row.add( 
+                        new IssuedAccessCardRecord(
+                            employeeId,
+                            null,
+                            r.Name,
+                            r.Surname,
+                            null,
+                            null,
+                            cardId,
+                            cardStatus,
+                            issuedTimestamp, 
+                            issuedBy
+                        )
+                    );
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
