@@ -628,7 +628,7 @@ function ajaxGetCardStatus(employeeId){
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
-                    document.getElementById("lab3AlertMessage").textContent = "FAILED to look up employee ID " + employee_id + ". Please check the error message in the console to investigate";
+                    document.getElementById("lab3AlertMessage").textContent = "FAILED to look up employee ID " + employeeId + ". Please check the error message in the console to investigate";
                     $('#lab3InfoMessage').prop('style', 'none');
                     $('#lab3AlertMessage').prop('style', 'none');
                 }
