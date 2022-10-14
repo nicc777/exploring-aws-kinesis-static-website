@@ -581,6 +581,17 @@ function getLatestCardDetails(cardData) {
     fCardStatus = "Not Issued";
     fIssuedTimestamp = "-";
     console.log("getLatestCardDetails(): cardData=" + JSON.stringify(cardData));
+    let options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'UTC',
+        timeZoneName: 'shortOffset',
+        hour12: false
+    };
 
     cardData = {
         "1665546180": {
