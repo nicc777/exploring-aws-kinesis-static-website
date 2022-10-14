@@ -687,7 +687,11 @@ function createTableForEmployeeDetails() {
     }
     
     return $('#lab3EmployeeDetailsTable').DataTable({
-        "destroy": true,
+        searching: false,
+        destroy: true,
+        paging: false,
+        ordering: false,
+        info: false,
         data: [],
         columns: [
             { 
