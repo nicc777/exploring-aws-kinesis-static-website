@@ -571,7 +571,7 @@ function ajaxGetCardStatus(employeeId){
             { 
                 crossdomain:true, 
                 type:"GET",  
-                url: applicationBaseUri + "/release_version.txt", 
+                url: api_url, 
                 success: function(r){ 
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
                     console.log("ajaxGetCardStatus(): r:" + r);
