@@ -631,6 +631,7 @@ function ajaxGetCardStatus(employeeId){
                     document.getElementById("lab3AlertMessage").textContent = "FAILED to look up employee ID " + employeeId + ". Please check the error message in the console to investigate";
                     $('#lab3InfoMessage').prop('style', 'none');
                     $('#lab3AlertMessage').prop('style', 'block');
+                    $('#lab3InfoMessage').prop('style', 'none');
                 }
             }
         ); 
@@ -645,23 +646,6 @@ function createTableForEmployeeDetails() {
     }
     
     $('#lab3EmployeeDetailsTable').DataTable({
-        /*
-            {
-                "AccessCardLinked": true, 
-                "EmployeeStatus": "Active", 
-                "Name": "Name100000000003", 
-                "Surname": "Surname100000000003", 
-                "AccessCardData": {
-                    "1665546180": {
-                        "CardId": "100000000118", 
-                        "IssuedBy": "SYSTEM", 
-                        "CardStatus": "issued"
-                    }
-                }
-            }
-
-            employeeId, personDepartment = null, personName, personSurname, scannedStatus = null, scannedBuildingIdx = null, cardIdx = null, cardStatus = null, cardIssuedTimestamp = null, cardIssuedBy = null
-        */
         data: [],
         columns: [
             { 
