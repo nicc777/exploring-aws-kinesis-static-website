@@ -576,6 +576,9 @@ function lookupEmployeeBtnClick() {
 
 
 function getLatestCardDetails(cardData) {
+    /*
+        In the case of multiple issued cards, we only want the latest one.
+    */
     fCardId = "Not Issued Yet";
     fIssuedBy = "-";
     fCardStatus = "Not Issued";
@@ -592,27 +595,6 @@ function getLatestCardDetails(cardData) {
         timeZoneName: 'shortOffset',
         hour12: false
     };
-
-    cardData = {
-        "1665546180": {
-            "CardId": "100000000218", 
-            "IssuedBy": "FAKE", 
-            "CardStatus": "expired"
-        },
-        "1665546280": {
-            "CardId": "100000000118", 
-            "IssuedBy": "REAL", 
-            "CardStatus": "issued"
-        },
-        "1665546000": {
-            "CardId": "100000000110", 
-            "IssuedBy": "FAKE", 
-            "CardStatus": "revoked"
-        }
-    };
-
-    
-
     var keys = Object.keys(cardData);
     var size = keys.length;
     if (size > 0) {
@@ -631,7 +613,6 @@ function getLatestCardDetails(cardData) {
         fCardStatus = cardData[latestKey].CardStatus;
         fIssuedTimestamp = new Date(latestKey * 1000).toLocaleString('en-GB', options);
     }
-
     var result = {
         cardId: fCardId,
         issuedBy: fIssuedBy,
@@ -732,6 +713,11 @@ function createTableForEmployeeDetails() {
                 title: 'Card Status',
                 data: null,
                 render: 'cardStatus'
+            },
+            { 
+                title: 'Card Issued Timestamp',
+                data: null,
+                render: 'cardIssuedTimestamp'
             },
         ],
     });
