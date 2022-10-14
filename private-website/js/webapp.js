@@ -593,7 +593,7 @@ function createTableForEmployeeDetails() {
         console.error(error);
     }
     
-    $('#datatablesSimple').DataTable({
+    $('#lab3EmployeeDetailsTable').DataTable({
         /*
             {
                 "AccessCardLinked": true, 
