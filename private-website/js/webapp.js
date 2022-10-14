@@ -580,7 +580,7 @@ function getLatestCardDetails(cardData) {
     fIssuedBy = "-";
     fCardStatus = "Not Issued";
     fIssuedTimestamp = "-";
-
+    console.log("getLatestCardDetails(): cardData=" + JSON.stringify(cardData));
 
     cardData = {
         "1665546180": {
@@ -611,6 +611,10 @@ function getLatestCardDetails(cardData) {
         console.log("keys: " + keys);
 
         var latestKey = keys[keys.length - 1];
+        console.log("getLatestCardDetails(): latestKey=" + latestKey);
+        var latestCardData = cardData[latestKey];
+        console.log("getLatestCardDetails(): latestCardData=" + JSON.stringify(latestCardData));
+
         fCardId = cardData[latestKey].CardId;
         fIssuedBy = cardData[latestKey].IssuedBy;
         fCardStatus = cardData[latestKey].CardStatus;
@@ -623,6 +627,7 @@ function getLatestCardDetails(cardData) {
         cardStatus: fCardStatus,
         issuedTimestamp: fIssuedTimestamp,
     }
+    console.log("getLatestCardDetails(): result=" + JSON.stringify(result));
     return result
 }
 
