@@ -521,10 +521,10 @@ function getReleaseVersionInfo(){
 
 
 function resetMessageBanners() {
-    $('#lab3InfoMessage').prop('style', 'none');
-    $('#lab3AlertMessage').prop('style', 'none');
-    $('#lab3SuccessMessage').prop('style', 'none');
-    $('#lab3WarningMessage').prop('style', 'none');
+    $('#lab3InfoMessage').prop('display', 'none');
+    $('#lab3AlertMessage').prop('display', 'none');
+    $('#lab3SuccessMessage').prop('display', 'none');
+    $('#lab3WarningMessage').prop('display', 'none');
 }
 
 function lookupEmployeeBtnClick() {
@@ -534,8 +534,8 @@ function lookupEmployeeBtnClick() {
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
-    $('#lab3InfoMessage').prop('style', 'block');
-    $('#lab3EmployeeInfoTable').prop('style', 'block');
+    $('#lab3InfoMessage').prop('display', 'block');
+    $('#lab3EmployeeInfoTable').prop('display', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
     ajaxGetCardStatus(employee_id);
 
@@ -640,7 +640,7 @@ function ajaxGetCardStatus(employeeId){
                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
                     document.getElementById("lab3AlertMessage").textContent = "FAILED to look up employee ID " + employeeId + ". Please check the error message in the console to investigate";
-                    $('#lab3AlertMessage').prop('style', 'block');
+                    $('#lab3AlertMessage').prop('display', 'block');
                     document.getElementById("lab3TableLoadSpinner").outerHTML = "";
                 }
             }
