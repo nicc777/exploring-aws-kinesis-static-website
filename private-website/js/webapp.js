@@ -642,7 +642,6 @@ function ajaxGetCardStatus(employeeId){
                     var table;
                     try {
                         table = createTableForEmployeeDetails();
-                        // table = $('#lab3EmployeeDetailsTable').DataTable();
                     } catch (exceptionVar) {
                         console.log("ajaxGetCardStatus(): Exception: " + exceptionVar);
                     }
