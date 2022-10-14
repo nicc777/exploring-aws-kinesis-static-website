@@ -575,7 +575,7 @@ function ajaxGetCardStatus(employeeId){
                 success: function(r){ 
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
                     console.log("ajaxGetCardStatus(): r:" + r);
-                    
+                    createTableForEmployeeDetails();
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
@@ -584,4 +584,68 @@ function ajaxGetCardStatus(employeeId){
             }
         ); 
     }
+}
+
+function createTableForEmployeeDetails() {
+    try {
+        document.getElementById("lab3TableLoadSpinner").outerHTML = "";
+    } catch (error) {
+        console.error(error);
+    }
+    
+    $('#datatablesSimple').DataTable({
+        /*
+            {
+                "AccessCardLinked": true, 
+                "EmployeeStatus": "Active", 
+                "Name": "Name100000000003", 
+                "Surname": "Surname100000000003", 
+                "AccessCardData": {
+                    "1665546180": {
+                        "CardId": "100000000118", 
+                        "IssuedBy": "SYSTEM", 
+                        "CardStatus": "issued"
+                    }
+                }
+            }
+        */
+        data: [],
+        columns: [
+            { 
+                title: 'AccessCard Linked',
+                data: null,
+                render: 'AccessCardLinked'
+            },
+            { 
+                title: 'Employee Status',
+                data: null,
+                render: 'EmployeeStatus'
+            },
+            { 
+                title: 'Employee Name',
+                data: null,
+                render: 'Name'
+            },
+            { 
+                title: 'Employee Surname',
+                data: null,
+                render: 'Surname'
+            },
+            { 
+                title: 'Last Issued Card ID',
+                data: null,
+                render: 'CardId'
+            },
+            { 
+                title: 'Issued By',
+                data: null,
+                render: 'IssuedBy'
+            },
+            { 
+                title: 'Card Status',
+                data: null,
+                render: 'CardStatus'
+            },
+        ],
+    });
 }
