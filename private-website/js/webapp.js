@@ -291,7 +291,7 @@ $(document).ready(pageInit);
 
 
 class IssuedAccessCardRecord {
-    constructor(employeeId, personDepartment = null, personName, personSurname, scannedStatus = null, scannedBuildingIdx = null, cardIdx = null, cardStatus = null, cardIssuedTimestamp = null, cardIssuedBy = null) {
+    constructor(employeeId, personDepartment = null, personName, personSurname, scannedStatus = null, scannedBuildingIdx = null, cardIdx = null, cardStatus = null, cardIssuedTimestamp = null, cardIssuedBy = null, PersonStatus = null) {
         this.employeeId = employeeId;
         this.personDepartment = personDepartment;
         this.personName = personName;
@@ -302,6 +302,7 @@ class IssuedAccessCardRecord {
         this._cardStatus = cardStatus;
         this._cardIssuedTimestamp = cardIssuedTimestamp;
         this.cardIssuedBy = cardIssuedBy;
+        this.PersonStatus = PersonStatus;
 
         this.cardIssuedTimestamp = function () {
             // REFERENCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options
@@ -392,7 +393,8 @@ function apiCallGetActiveEmployeesWithAccessCardStatus(qty = 50, startToken = ""
                                         record.CardIdx,
                                         record.CardStatus,
                                         record.CardIssuedTimestamp, 
-                                        record.CardIssuedBy
+                                        record.CardIssuedBy,
+                                        record.PersonStatus
                                     )
                                 );
                                 addedEmployeeIds.push(record.EmployeeId);
@@ -597,7 +599,8 @@ function ajaxGetCardStatus(employeeId){
                             cardId,
                             cardStatus,
                             issuedTimestamp, 
-                            issuedBy
+                            issuedBy,
+                            r.EmployeeStatus
                         )
                     );
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
@@ -637,43 +640,40 @@ function createTableForEmployeeDetails() {
                     }
                 }
             }
+
+            employeeId, personDepartment = null, personName, personSurname, scannedStatus = null, scannedBuildingIdx = null, cardIdx = null, cardStatus = null, cardIssuedTimestamp = null, cardIssuedBy = null
         */
         data: [],
         columns: [
             { 
-                title: 'AccessCard Linked',
-                data: null,
-                render: 'AccessCardLinked'
-            },
-            { 
                 title: 'Employee Status',
                 data: null,
-                render: 'EmployeeStatus'
+                render: 'PersonStatus'
             },
             { 
                 title: 'Employee Name',
                 data: null,
-                render: 'Name'
+                render: 'personName'
             },
             { 
                 title: 'Employee Surname',
                 data: null,
-                render: 'Surname'
+                render: 'personSurname'
             },
             { 
                 title: 'Last Issued Card ID',
                 data: null,
-                render: 'CardId'
+                render: 'cardIdx'
             },
             { 
                 title: 'Issued By',
                 data: null,
-                render: 'IssuedBy'
+                render: 'cardIssuedBy'
             },
             { 
                 title: 'Card Status',
                 data: null,
-                render: 'CardStatus'
+                render: 'cardStatus'
             },
         ],
     });
