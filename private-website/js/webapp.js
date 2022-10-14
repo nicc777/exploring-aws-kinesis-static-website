@@ -596,17 +596,17 @@ function getLatestCardDetails(cardData) {
     cardData = {
         "1665546180": {
             "CardId": "100000000218", 
-            "IssuedBy": "SYSTEM", 
+            "IssuedBy": "FAKE", 
             "CardStatus": "expired"
         },
         "1665546280": {
             "CardId": "100000000118", 
-            "IssuedBy": "SYSTEM", 
+            "IssuedBy": "REAL", 
             "CardStatus": "issued"
         },
         "1665546000": {
             "CardId": "100000000110", 
-            "IssuedBy": "SYSTEM", 
+            "IssuedBy": "FAKE", 
             "CardStatus": "revoked"
         }
     };
