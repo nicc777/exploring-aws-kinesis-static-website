@@ -572,6 +572,9 @@ function ajaxGetCardStatus(employeeId){
                 crossdomain:true, 
                 type:"GET",  
                 url: api_url, 
+                headers: {
+                    "Authorization": accessToken
+                },
                 success: function(r){ 
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
                     console.log("ajaxGetCardStatus(): r:" + r);
