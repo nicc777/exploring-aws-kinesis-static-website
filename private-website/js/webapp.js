@@ -527,7 +527,7 @@ function resetMessageBanners() {
     $('#lab3WarningMessage').prop('style', 'display: none;');
 }
 
-function lookupEmployeeBtnClick() {
+function lookupEmployeeBtnClick(table) {
     resetMessageBanners();
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
@@ -535,7 +535,7 @@ function lookupEmployeeBtnClick() {
     $('#lab3InfoMessage').prop('style', 'block');
     $('#lab3EmployeeInfoTable').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
-    ajaxGetCardStatus(employee_id);
+    ajaxGetCardStatus(employee_id, table);
 
 
     // TODO look at https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#setting_and_clearing_timeouts on how I can timeout a lookup and then display a warning message
@@ -611,7 +611,6 @@ function getLatestCardDetails(cardData) {
         fCardId = cardData[latestKey].CardId;
         fIssuedBy = cardData[latestKey].IssuedBy;
         fCardStatus = cardData[latestKey].CardStatus;
-        // fIssuedTimestamp = new Date(parseInt(latestKey) * 1000).toLocaleString('en-GB', options);
         fIssuedTimestamp = parseInt(latestKey);
     }
     var result = {
@@ -624,7 +623,8 @@ function getLatestCardDetails(cardData) {
     return result
 }
 
-function ajaxGetCardStatus(employeeId){ 
+function ajaxGetCardStatus(employeeId, table){ 
+    table.rows( {page: 'current'} ).delete();
     let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
     let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employee/" + employeeId + "/access-card-status";
     api_url = api_url.replace(":8443", "");
@@ -641,7 +641,7 @@ function ajaxGetCardStatus(employeeId){
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
                     console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
                     createTableForEmployeeDetails();
-                    var table = $('#lab3EmployeeDetailsTable').DataTable();
+                    // var table = $('#lab3EmployeeDetailsTable').DataTable();
                     var cardData = getLatestCardDetails(r.AccessCardData);
                     table.row.add( 
                         new IssuedAccessCardRecord(
