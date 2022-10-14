@@ -523,6 +523,7 @@ function lookupEmployeeBtnClick() {
     $('#lab3InfoMessage').prop('style', 'block');
     $('#lab3EmployeeInfoTable').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
+    ajaxGetCardStatus(employee_id);
 
 
     // TODO look at https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#setting_and_clearing_timeouts on how I can timeout a lookup and then display a warning message
@@ -559,4 +560,28 @@ function lookupEmployeeBtnClick() {
     */
 
 
+}
+
+function ajaxGetCardStatus(employeeId){ 
+    let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
+    let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employee/" + employeeId + "/access-card-status";
+    api_url = api_url.replace(":8443", "");
+    if (accessToken) {
+        $.ajax(
+            { 
+                crossdomain:true, 
+                type:"GET",  
+                url: applicationBaseUri + "/release_version.txt", 
+                success: function(r){ 
+                    console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
+                    console.log("ajaxGetCardStatus(): r:" + r);
+                    
+                },
+                error: function(jqXHR, textStatus, errorThrown ) {
+                    console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
+                    console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
+                }
+            }
+        ); 
+    }
 }
