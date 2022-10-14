@@ -520,7 +520,17 @@ function getReleaseVersionInfo(){
 }
 
 
+function resetMessageBanners() {
+    $('#lab3InfoMessage').prop('style', 'none');
+    $('#lab3AlertMessage').prop('style', 'none');
+    $('#lab3SuccessMessage').prop('style', 'none');
+    $('#lab3WarningMessage').prop('style', 'none');
+}
+
 function lookupEmployeeBtnClick() {
+    resetMessageBanners();
+
+
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
@@ -625,13 +635,12 @@ function ajaxGetCardStatus(employeeId){
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
+                    resetMessageBanners();
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
                     document.getElementById("lab3AlertMessage").textContent = "FAILED to look up employee ID " + employeeId + ". Please check the error message in the console to investigate";
-                    $('#lab3InfoMessage').prop('style', 'none');
                     $('#lab3AlertMessage').prop('style', 'block');
-                    $('#lab3InfoMessage').prop('style', 'none');
                     document.getElementById("lab3TableLoadSpinner").outerHTML = "";
                 }
             }
