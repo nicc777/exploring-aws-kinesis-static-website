@@ -603,6 +603,7 @@ function ajaxGetCardStatus(employeeId){
                             r.EmployeeStatus
                         )
                     );
+                    table.draw();
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
