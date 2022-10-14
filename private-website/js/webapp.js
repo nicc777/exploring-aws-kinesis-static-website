@@ -611,7 +611,8 @@ function getLatestCardDetails(cardData) {
         fCardId = cardData[latestKey].CardId;
         fIssuedBy = cardData[latestKey].IssuedBy;
         fCardStatus = cardData[latestKey].CardStatus;
-        fIssuedTimestamp = new Date(latestKey * 1000).toLocaleString('en-GB', options);
+        // fIssuedTimestamp = new Date(parseInt(latestKey) * 1000).toLocaleString('en-GB', options);
+        fIssuedTimestamp = parseInt(latestKey);
     }
     var result = {
         cardId: fCardId,
