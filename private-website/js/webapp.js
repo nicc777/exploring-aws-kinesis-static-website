@@ -600,6 +600,7 @@ function getLatestCardDetails(cardData) {
         }
     };
 
+    
 
     var keys = Object.keys(cardData);
     var size = keys.length;
@@ -608,6 +609,12 @@ function getLatestCardDetails(cardData) {
             return a - b;
         });
         console.log("keys: " + keys);
+
+        var latestKey = keys[keys.length - 1];
+        fCardId = cardData[latestKey].CardId;
+        fIssuedBy = cardData[latestKey].IssuedBy;
+        fCardStatus = cardData[latestKey].CardStatus;
+        fIssuedTimestamp = new Date(latestKey * 1000).toLocaleString('en-GB', options);
     }
 
     var result = {
