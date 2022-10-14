@@ -641,10 +641,8 @@ function ajaxGetCardStatus(employeeId){
                     console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
                     var table;
                     try {
-                        createTableForEmployeeDetails();
-                        table = $('#lab3EmployeeDetailsTable').DataTable({
-                            "destroy": true
-                        });
+                        table = createTableForEmployeeDetails();
+                        // table = $('#lab3EmployeeDetailsTable').DataTable();
                     } catch (exceptionVar) {
                         console.log("ajaxGetCardStatus(): Exception: " + exceptionVar);
                     }
@@ -688,7 +686,8 @@ function createTableForEmployeeDetails() {
         console.log("createTableForEmployeeDetails(): Exception:" + error);
     }
     
-    $('#lab3EmployeeDetailsTable').DataTable({
+    return $('#lab3EmployeeDetailsTable').DataTable({
+        "destroy": true,
         data: [],
         columns: [
             { 
