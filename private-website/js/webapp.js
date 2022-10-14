@@ -581,6 +581,14 @@ function getLatestCardDetails(cardData) {
     fCardStatus = "Not Issued";
     fIssuedTimestamp = "-";
 
+    var keys = Object.keys(cardData);
+    var size = keys.length;
+    if (size > 0) {
+        keys.sort(function(a, b) {
+            return a - b;
+        });
+        console.log("keys: " + keys);
+    }
 
     var result = {
         cardId: fCardId,
@@ -609,10 +617,6 @@ function ajaxGetCardStatus(employeeId){
                     console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
                     createTableForEmployeeDetails();
                     var table = $('#lab3EmployeeDetailsTable').DataTable();
-                    // cardId = "Not Issued Yet";
-                    // issuedBy = "-";
-                    // cardStatus = "Not Issued";
-                    // issuedTimestamp = "-";
                     var cardData = getLatestCardDetails(r.AccessCardData);
                     table.row.add( 
                         new IssuedAccessCardRecord(
