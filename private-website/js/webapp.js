@@ -566,6 +566,23 @@ function lookupEmployeeBtnClick() {
 
 }
 
+
+function getLatestCardDetails(cardData) {
+    fCardId = "Not Issued Yet";
+    fIssuedBy = "-";
+    fCardStatus = "Not Issued";
+    fIssuedTimestamp = "-";
+
+
+    var result = {
+        cardId: fCardId,
+        issuedBy: fIssuedBy,
+        cardStatus: fCardStatus,
+        issuedTimestamp: fIssuedTimestamp,
+    }
+    return result
+}
+
 function ajaxGetCardStatus(employeeId){ 
     let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
     let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employee/" + employeeId + "/access-card-status";
@@ -584,10 +601,11 @@ function ajaxGetCardStatus(employeeId){
                     console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
                     createTableForEmployeeDetails();
                     var table = $('#lab3EmployeeDetailsTable').DataTable();
-                    cardId = "Not Issued Yet";
-                    issuedBy = "-";
-                    cardStatus = "Not Issued";
-                    issuedTimestamp = "-";
+                    // cardId = "Not Issued Yet";
+                    // issuedBy = "-";
+                    // cardStatus = "Not Issued";
+                    // issuedTimestamp = "-";
+                    var cardData = getLatestCardDetails(r.AccessCardData);
                     table.row.add( 
                         new IssuedAccessCardRecord(
                             employeeId,
@@ -596,10 +614,10 @@ function ajaxGetCardStatus(employeeId){
                             r.Surname,
                             null,
                             null,
-                            cardId,
-                            cardStatus,
-                            issuedTimestamp, 
-                            issuedBy,
+                            cardData.cardId,
+                            cardData.cardStatus,
+                            cardData.issuedTimestamp, 
+                            cardData.issuedBy,
                             r.EmployeeStatus
                         )
                     );
