@@ -577,7 +577,7 @@ function ajaxGetCardStatus(employeeId){
                 },
                 success: function(r){ 
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
-                    console.log("ajaxGetCardStatus(): r:" + r);
+                    console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
                     createTableForEmployeeDetails();
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
