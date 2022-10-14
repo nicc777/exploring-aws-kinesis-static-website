@@ -581,6 +581,26 @@ function getLatestCardDetails(cardData) {
     fCardStatus = "Not Issued";
     fIssuedTimestamp = "-";
 
+
+    cardData = {
+        "1665546180": {
+            "CardId": "100000000218", 
+            "IssuedBy": "SYSTEM", 
+            "CardStatus": "expired"
+        },
+        "1665546280": {
+            "CardId": "100000000118", 
+            "IssuedBy": "SYSTEM", 
+            "CardStatus": "issued"
+        },
+        "1665546000": {
+            "CardId": "100000000110", 
+            "IssuedBy": "SYSTEM", 
+            "CardStatus": "revoked"
+        }
+    };
+
+
     var keys = Object.keys(cardData);
     var size = keys.length;
     if (size > 0) {
