@@ -639,9 +639,9 @@ function ajaxGetCardStatus(employeeId){
                 success: function(r){ 
                     console.log("ajaxGetCardStatus(): Ajax Call Succeeded");
                     console.log("ajaxGetCardStatus(): r:" + JSON.stringify(r));
-                    createTableForEmployeeDetails();
                     var table;
                     try {
+                        createTableForEmployeeDetails();
                         table = $('#lab3EmployeeDetailsTable').DataTable();
                     } catch (exceptionVar) {
                         console.log("ajaxGetCardStatus(): Exception: " + exceptionVar);
@@ -683,7 +683,7 @@ function createTableForEmployeeDetails() {
     try {
         document.getElementById("lab3TableLoadSpinner").outerHTML = "";
     } catch (error) {
-        console.error(error);
+        console.log("createTableForEmployeeDetails(): Exception:" + error);
     }
     
     $('#lab3EmployeeDetailsTable').DataTable({
