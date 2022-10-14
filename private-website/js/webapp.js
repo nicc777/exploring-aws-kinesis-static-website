@@ -632,6 +632,7 @@ function ajaxGetCardStatus(employeeId){
                     $('#lab3InfoMessage').prop('style', 'none');
                     $('#lab3AlertMessage').prop('style', 'block');
                     $('#lab3InfoMessage').prop('style', 'none');
+                    document.getElementById("lab3TableLoadSpinner").outerHTML = "";
                 }
             }
         ); 
