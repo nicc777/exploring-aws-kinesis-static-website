@@ -530,7 +530,7 @@ function resetMessageBanners() {
 function lookupEmployeeBtnClick() {
     resetMessageBanners();
     $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
-    $('#lab3LinkAccessCardEventResponseRecordTable').prop('style', 'display: none;');
+    $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'display: none;');
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
