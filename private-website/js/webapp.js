@@ -655,7 +655,7 @@ function ajaxGetCardStatus(employeeId){
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
 
                     // Display the linking form IF the employee status is "onboarding"
-                    if (r.EmployeeStatus == "onboarding") {
+                    if (r.EmployeeStatus == "Onboarding") {
                         $('#lab3AccessCardLinkingForm').prop('style', 'block');
                         console.log("ajaxGetCardStatus(): Employee Status is onboarding - displaying the linking form...");
                     } else {
