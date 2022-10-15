@@ -820,7 +820,7 @@ function linkAccessCardToEmployeeBtnClick() {
     document.getElementById("lab3InfoMessage").textContent = "Request for Linking Access Card to Employee Sent...";
 
     $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
-    var completeOnboarding = $('#lab3CompleteOnboarding:checked').val();
+    var completeOnboarding = $('#lab3CompleteOnboarding').val();
     let card_id = document.getElementById("lab3AccessCardId1").value;
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     console.log("linkAccessCardToEmployeeBtnClick(): completeOnboarding=" + completeOnboarding);
