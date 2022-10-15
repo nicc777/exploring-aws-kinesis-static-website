@@ -846,6 +846,7 @@ function linkAccessCardToEmployeeBtnClick() {
         "CompleteOnboarding": completeOnboarding, 
         "LinkedBy": idToken["custom:employee-id"]
     }
+    console.log("linkAccessCardToEmployeeBtnClick(): requestData=" + JSON.stringify(requestData));
     if (accessToken) {
         $.ajax(
             { 
