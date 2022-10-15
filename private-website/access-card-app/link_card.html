@@ -124,8 +124,28 @@
                                       <input type="text" class="form-control" id="lab3AccessCardId1" aria-describedby="empnrHelp2">
                                       <div id="empnrHelp2" class="form-text">Use a valid access card ID</div>
                                     </div>
+                                    <div class="form-check form-switch form-check-reverse">
+                                        <input class="form-check-input" type="checkbox" id="lab3CompleteOnboarding">
+                                        <label class="form-check-label" for="lab3CompleteOnboarding">Complete Onboarding post Linking of Access Card</label>
+                                    </div>
                                     <button id="lab3AccessCardLinkingBtn" type="submit" class="btn btn-primary" onclick="linkAccessCardToEmployeeBtnClick()">Submit</button>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Employee View Table -->
+                    <div class="card mb-4" style="display: none;" id="lab3LinkAccessCardEventResponseRecordTable" style="display: none;">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Link Access Card to Employee Event Response
+                            </div>
+                            <div class="card-body">
+                                <table id="lab3LinkAccessCardEventResponseRecordTable">
+                                    <div class="spinner-border text-secondary" role="status" id="lab3TableLoadSpinner2">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </table>
                             </div>
                         </div>
                     </div>

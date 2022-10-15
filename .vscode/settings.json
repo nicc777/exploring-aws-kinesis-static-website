@@ -6,6 +6,7 @@
         "Fcallback",
         "Finternal",
         "loggedout",
+        "Oidc",
         "sandybox",
         "signin",
         "templ"
