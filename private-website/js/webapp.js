@@ -822,6 +822,7 @@ function linkAccessCardToEmployeeBtnClick() {
     $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
     var completeOnboarding = $('#lab3CompleteOnboarding:checked').val();
     let card_id = document.getElementById("lab3AccessCardId1").value;
+    let employee_id = document.getElementById("lab3EmployeeId1").value;
     console.log("linkAccessCardToEmployeeBtnClick(): completeOnboarding=" + completeOnboarding);
 
     /**
@@ -838,7 +839,7 @@ function linkAccessCardToEmployeeBtnClick() {
      */
      let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
      let idToken = parseJwt(JSON.parse(sessionStorage.getItem("siteTokens")).OidcData);
-     let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employee/" + employeeId + "/access-card-status";
+     let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employee/" + employee_id + "/link-card";
      api_url = api_url.replace(":8443", "");
      var requestData = {
         "CardId": card_id, 
