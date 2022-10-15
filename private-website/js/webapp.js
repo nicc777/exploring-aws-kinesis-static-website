@@ -614,6 +614,9 @@ function getLatestCardDetails(cardData) {
 }
 
 function ajaxGetCardStatus(employeeId){ 
+    const acceptedEmployeeStatusForDisplayingCardLinkForm = [
+        "Onboarding",
+    ]
     let accessToken = JSON.parse(sessionStorage.getItem("siteTokens")).AccessTokenData;
     let api_url = applicationBaseUri.replace("internal", "internal-api") + "/access-card-app/employee/" + employeeId + "/access-card-status";
     api_url = api_url.replace(":8443", "");
@@ -655,7 +658,7 @@ function ajaxGetCardStatus(employeeId){
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
 
                     // Display the linking form IF the employee status is "onboarding"
-                    if (r.EmployeeStatus == "Onboarding") {
+                    if ( acceptedEmployeeStatusForDisplayingCardLinkForm.includes(r.EmployeeStatus)) {
                         $('#lab3AccessCardLinkingForm').prop('style', 'block');
                         console.log("ajaxGetCardStatus(): Employee Status is onboarding - displaying the linking form...");
                     } else {
