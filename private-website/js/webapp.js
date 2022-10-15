@@ -862,6 +862,7 @@ function linkAccessCardToEmployeeBtnClick() {
                 },
                 success: function(r){ 
                     document.getElementById("lab3InfoMessage").textContent = "Response Received";
+                    $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'block');
                     console.log("linkAccessCardToEmployeeBtnClick(): Ajax Call Succeeded");
                     console.log("linkAccessCardToEmployeeBtnClick(): r:" + JSON.stringify(r));
                     var table;
