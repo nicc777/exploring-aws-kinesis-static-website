@@ -97,7 +97,7 @@
                                 </form>
                             </div>
                         </div>
-                        <!-- TODO - Employee View Table -->
+                        <!-- Employee View Table -->
                         <div class="card mb-4" style="display: none;" id="lab3EmployeeInfoTable">
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -113,6 +113,19 @@
                                     <!-- <br />
                                     <button type="button" class="btn btn-light" onclick="getActiveEmployees()">Force Reload Again</button> -->
                                 </div>
+                            </div>
+                        </div>
+                        <!-- access card link form  -->
+                        <div class="card mb-4" id="lab3AccessCardLinkingForm" style="display: none;">
+                            <div class="card-body">
+                                <form id="lab3EmployeeLookupForm">
+                                    <div class="mb-3">
+                                      <label for="lab3AccessCardId1" class="form-label">Access Card ID</label>
+                                      <input type="text" class="form-control" id="lab3AccessCardId1" aria-describedby="empnrHelp">
+                                      <div id="empnrHelp" class="form-text">Use a valid access card ID</div>
+                                    </div>
+                                    <button id="lab3EmployeeLookupBtn" type="submit" class="btn btn-primary" onclick="linkAccessCardToEmployeeBtnClick()">Submit</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -529,6 +529,7 @@ function resetMessageBanners() {
 
 function lookupEmployeeBtnClick() {
     resetMessageBanners();
+    $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
@@ -652,6 +653,15 @@ function ajaxGetCardStatus(employeeId){
                     );
                     table.draw();
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
+
+                    // Display the linking form IF the employee status is "onboarding"
+                    if (r.EmployeeStatus == "onboarding") {
+                        $('#lab3AccessCardLinkingForm').prop('style', 'block');
+                        console.log("ajaxGetCardStatus(): Employee Status is onboarding - displaying the linking form...");
+                    } else {
+                        console.log("ajaxGetCardStatus(): Employee Status is NOT onboarding, therefore not displaying the linking form...");
+                    }
+
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     resetMessageBanners();
@@ -719,4 +729,8 @@ function createTableForEmployeeDetails() {
             },
         ],
     });
+}
+
+function linkAccessCardToEmployeeBtnClick() {
+    console.log("linkAccessCardToEmployeeBtnClick(): Linking access card to employee...");
 }
