@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Cognito Authentication Test - CALLBACK</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="application/javascript" src="js/hashes.min.js"></script>
     <script type="application/javascript" src="js/crypto-js.min.js"></script>
     <script type="application/javascript" src="js/webapp.js"></script>
@@ -18,6 +19,7 @@
 <script type="application/javascript">
 
     var callBackUrl = "https://internal.sandybox.link:8443/callback.html"
+    // var callBackUrl = "http://localhost:9000/callback.html"
 
     function id_callback_type() {
         let params = (new URL(document.location)).searchParams;
@@ -38,7 +40,6 @@
             "grant_type": "authorization_code",
             "code": params.get("code"),
             "client_id": cognitoClientId,
-            //"redirect_uri": "http://localhost:9000/callback.html",
             "redirect_uri": callBackUrl,
             "code_verifier": base64URL(sessionStorage.getItem('verifier'))
         }
