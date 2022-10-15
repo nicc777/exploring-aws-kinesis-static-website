@@ -530,6 +530,7 @@ function resetMessageBanners() {
 function lookupEmployeeBtnClick() {
     resetMessageBanners();
     $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
+    $('#lab3LinkAccessCardEventResponseRecordTable').prop('style', 'display: none;');
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
@@ -816,7 +817,9 @@ function parseJwt (token) {
 
 function linkAccessCardToEmployeeBtnClick() {
     console.log("linkAccessCardToEmployeeBtnClick(): Linking access card to employee...");
+    document.getElementById("lab3InfoMessage").textContent = "Request for Linking Access Card to Employee Sent...";
 
+    $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
     var completeOnboarding = $('#lab3CompleteOnboarding:checked').val();
     let card_id = document.getElementById("lab3AccessCardId1").value;
     console.log("linkAccessCardToEmployeeBtnClick(): completeOnboarding=" + completeOnboarding);
@@ -842,53 +845,50 @@ function linkAccessCardToEmployeeBtnClick() {
         "CompleteOnboarding": completeOnboarding, 
         "LinkedBy": idToken["custom:employee-id"]
     }
-     if (accessToken) {
-         $.ajax(
-             { 
-                 crossdomain:true, 
-                 type:"POST",  
-                 url: api_url,
-                 data: JSON.stringify(requestData),
-                 dataType: "json",
-                 contentType: "application/json; charset=utf-8",
-                 headers: {
-                     "Authorization": accessToken
-                 },
-                 success: function(r){ 
-                     console.log("linkAccessCardToEmployeeBtnClick(): Ajax Call Succeeded");
-                     console.log("linkAccessCardToEmployeeBtnClick(): r:" + JSON.stringify(r));
-
-                    
-
-                     var table;
-                     try {
-                         table = createTableForLinkAccessCardEventResponseRecord();
-                     } catch (exceptionVar) {
-                         console.log("linkAccessCardToEmployeeBtnClick(): Exception: " + exceptionVar);
-                     }
+    if (accessToken) {
+        $.ajax(
+            { 
+                crossdomain:true, 
+                type:"POST",  
+                url: api_url,
+                data: JSON.stringify(requestData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    "Authorization": accessToken
+                },
+                success: function(r){ 
+                    document.getElementById("lab3InfoMessage").textContent = "Response Received";
+                    console.log("linkAccessCardToEmployeeBtnClick(): Ajax Call Succeeded");
+                    console.log("linkAccessCardToEmployeeBtnClick(): r:" + JSON.stringify(r));
+                    var table;
+                    try {
+                        table = createTableForLinkAccessCardEventResponseRecord();
+                    } catch (exceptionVar) {
+                        console.log("linkAccessCardToEmployeeBtnClick(): Exception: " + exceptionVar);
+                    }
                      
-                     table.row.add( 
-                         new LinkAccessCardEventResponseRecord(
-                             r["event-bucket-name"],
-                             r["event-key"],
-                             r["event-key-version"],
-                             r["event-created-timestamp"],
-                             r["event-request-id"],
-                         )
-                     );
-                     table.draw();
+                    table.row.add( 
+                        new LinkAccessCardEventResponseRecord(
+                            r["event-bucket-name"],
+                            r["event-key"],
+                            r["event-key-version"],
+                            r["event-created-timestamp"],
+                            r["event-request-id"],
+                        )
+                    );
+                    table.draw();
  
-                 },
-                 error: function(jqXHR, textStatus, errorThrown ) {
-                     resetMessageBanners();
-                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
-                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
-                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
-                     document.getElementById("lab3AlertMessage").textContent = "FAILED to look up employee ID " + employeeId + ". Please check the error message in the console to investigate";
-                     $('#lab3AlertMessage').prop('style', 'block');
-                     document.getElementById("lab3TableLoadSpinner").outerHTML = "";
-                 }
-             }
-         ); 
-     }
+                },
+                error: function(jqXHR, textStatus, errorThrown ) {
+                    resetMessageBanners();
+                    $('#lab3AlertMessage').prop('style', 'block');
+                    document.getElementById("lab3AlertMessage").textContent = "Request Failed";
+                    console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
+                    console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
+                    document.getElementById("lab3TableLoadSpinner2").outerHTML = "";
+                }
+            }
+        ); 
+    }
 }
