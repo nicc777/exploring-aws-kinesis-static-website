@@ -672,7 +672,7 @@ function ajaxGetCardStatus(employeeId){
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     // resetMessageBanners();
-                    divVisibilityControl("LinkAccessCardPage", "EmployeeSearchState");
+                    divVisibilityControl("LinkAccessCardPage", "EmployeeSearchErrorState");
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
