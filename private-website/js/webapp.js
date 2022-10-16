@@ -823,7 +823,7 @@ function linkAccessCardToEmployeeBtnClick() {
     console.log("linkAccessCardToEmployeeBtnClick(): Linking access card to employee...");
     document.getElementById("lab3InfoMessage").textContent = "Request for Linking Access Card to Employee Sent...";
 
-    divVisibilityControl("LinkAccessCardPage", "EmployeeSearchState");
+    divVisibilityControl("LinkAccessCardPage", "EmployeeLinkResultState");
 
     // $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
     var completeOnboarding = document.getElementById("lab3CompleteOnboarding").checked;
