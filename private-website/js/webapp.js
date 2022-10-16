@@ -528,14 +528,17 @@ function resetMessageBanners() {
 }
 
 function lookupEmployeeBtnClick() {
-    resetMessageBanners();
-    $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
-    $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'display: none;');
+    // resetMessageBanners();
+
+    divVisibilityControl("LinkAccessCardPage", "EmployeeSearchState");
+
+    // $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
+    // $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'display: none;');
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
     $('#lab3InfoMessage').prop('style', 'block');
-    $('#lab3EmployeeInfoTable').prop('style', 'block');
+    // $('#lab3EmployeeInfoTable').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
     ajaxGetCardStatus(employee_id);
 
@@ -668,7 +671,8 @@ function ajaxGetCardStatus(employeeId){
 
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
-                    resetMessageBanners();
+                    // resetMessageBanners();
+                    divVisibilityControl("LinkAccessCardPage", "EmployeeSearchState");
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
@@ -819,7 +823,9 @@ function linkAccessCardToEmployeeBtnClick() {
     console.log("linkAccessCardToEmployeeBtnClick(): Linking access card to employee...");
     document.getElementById("lab3InfoMessage").textContent = "Request for Linking Access Card to Employee Sent...";
 
-    $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
+    divVisibilityControl("LinkAccessCardPage", "EmployeeSearchState");
+
+    // $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
     var completeOnboarding = document.getElementById("lab3CompleteOnboarding").checked;
     
     let card_id = document.getElementById("lab3AccessCardId1").value;
@@ -862,7 +868,7 @@ function linkAccessCardToEmployeeBtnClick() {
                 },
                 success: function(r){ 
                     document.getElementById("lab3InfoMessage").textContent = "Response Received";
-                    $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'block');
+                    // $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'block');
                     console.log("linkAccessCardToEmployeeBtnClick(): Ajax Call Succeeded");
                     console.log("linkAccessCardToEmployeeBtnClick(): r:" + JSON.stringify(r));
                     var table;
@@ -885,7 +891,8 @@ function linkAccessCardToEmployeeBtnClick() {
  
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
-                    resetMessageBanners();
+                    divVisibilityControl("LinkAccessCardPage", "EmployeeLinkErrorState");
+                    // resetMessageBanners();
                     $('#lab3AlertMessage').prop('style', 'block');
                     document.getElementById("lab3AlertMessage").textContent = "Request Failed";
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
@@ -896,3 +903,66 @@ function linkAccessCardToEmployeeBtnClick() {
         ); 
     }
 }
+
+
+const PER_PAGE_DIV_STATES = {
+    "LinkAccessCardPage": {
+        "LandingState": {
+            "lab3InfoMessage": "display: none;",
+            "lab3AlertMessage": "display: none;",
+            "lab3SuccessMessage": "display: none;",
+            "lab3WarningMessage": "display: none;",
+            "lab3EmployeeInfoTable": "display: none;",
+            "lab3AccessCardLinkingForm": "display: none;",
+            "lab3LinkAccessCardEventResponseRecordTableDiv": "display: none;",
+        },
+        "EmployeeSearchState": {
+            "lab3EmployeeInfoTable": "block;",
+            "lab3AccessCardLinkingForm": "block",
+            "lab3LinkAccessCardEventResponseRecordTableDiv": "display: none;",
+        },
+        "EmployeeSearchErrorState": {
+            "lab3InfoMessage": "display: none;",
+            "lab3AlertMessage": "display: none;",
+            "lab3SuccessMessage": "display: none;",
+            "lab3WarningMessage": "display: none;",
+            "lab3EmployeeInfoTable": "block;",
+            "lab3AccessCardLinkingForm": "block",
+            "lab3LinkAccessCardEventResponseRecordTableDiv": "display: none;",
+        },
+        "EmployeeLinkResultState": {
+            "lab3EmployeeInfoTable": "display: none;",
+            "lab3AccessCardLinkingForm": "display: none;",
+            "lab3LinkAccessCardEventResponseRecordTableDiv": "block;",
+        },
+        "EmployeeLinkErrorState": {
+            "lab3InfoMessage": "display: none;",
+            "lab3AlertMessage": "display: none;",
+            "lab3SuccessMessage": "display: none;",
+            "lab3WarningMessage": "display: none;",
+            "lab3EmployeeInfoTable": "display: none;",
+            "lab3AccessCardLinkingForm": "display: none;",
+            "lab3LinkAccessCardEventResponseRecordTableDiv": "display: none;",
+        },
+    },
+}
+
+function divVisibilityControl(page, state) {
+    if (page in PER_PAGE_DIV_STATES) {
+        const page_states = PER_PAGE_DIV_STATES[page]
+        if (state in page_states) {
+            const div_states = page_states[state]
+            for (const DIV_ID in div_states) {
+                // console.log(`${key}: ${user[key]}`);
+                const formatted_div_id = "#" + DIV_ID;
+                const div_style = div_states[DIV_ID];
+                $(formatted_div_id).prop('style', div_style);
+            }            
+        } else {
+            console.error("No state '" + state + "' for page '" + page + "' found");
+        }        
+    } else {
+        console.warning("Page '" + page + "' not found");
+    }
+}
+
