@@ -504,7 +504,6 @@ function getActiveEmployees() {
 function getReleaseVersionInfo(){ 
     $.ajax(
         { 
-            // crossdomain:true, 
             type:"GET",  
             url: applicationBaseUri + "/release_version.txt", 
             success: function(r){ 
@@ -528,55 +527,14 @@ function resetMessageBanners() {
 }
 
 function lookupEmployeeBtnClick() {
-    // resetMessageBanners();
-
     divVisibilityControl("LinkAccessCardPage", "EmployeeSearchState");
-
-    // $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
-    // $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'display: none;');
     let employee_id = document.getElementById("lab3EmployeeId1").value;
     $('#lab3EmployeeLookupBtn').prop('disabled', true);
     document.getElementById("lab3InfoMessage").textContent = "Looking up employee ID " + employee_id;
     $('#lab3InfoMessage').prop('style', 'block');
-    // $('#lab3EmployeeInfoTable').prop('style', 'block');
     console.log("Looking up employee by Employee Number: " + employee_id);
-    ajaxGetCardStatus(employee_id);
-
-
     // TODO look at https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#setting_and_clearing_timeouts on how I can timeout a lookup and then display a warning message
-
-
-    /*
-        If a user is LINKED:
-
-            $ curl -H "Authorization: ${JWT_TOKEN}" https://$API_DOMAIN/access-card-app/employee/$EMP_ID/access-card-status
-            {
-                "AccessCardLinked": true, 
-                "EmployeeStatus": "Active", 
-                "Name": "Name100000000003", 
-                "Surname": "Surname100000000003", 
-                "AccessCardData": {
-                    "1665546180": {
-                        "CardId": "100000000118", 
-                        "IssuedBy": "SYSTEM", 
-                        "CardStatus": "issued"
-                    }
-                }
-            }
-
-        A person busy onboarding:
-
-        $ curl -H "Authorization: ${JWT_TOKEN}" https://$API_DOMAIN/access-card-app/employee/$EMP_ID/access-card-status
-        {
-            "AccessCardLinked": false, 
-            "EmployeeStatus": "Onboarding", 
-            "Name": "Name100000000103", 
-            "Surname": "Surname100000000103", 
-            "AccessCardData": {}
-        }
-    */
-
-
+    ajaxGetCardStatus(employee_id);
 }
 
 
@@ -639,39 +597,38 @@ function ajaxGetCardStatus(employeeId){
                     var table;
                     try {
                         table = createTableForEmployeeDetails();
+                        var cardData = getLatestCardDetails(r.AccessCardData);
+                        table.row.add( 
+                            new IssuedAccessCardRecord(
+                                employeeId,
+                                null,
+                                r.Name,
+                                r.Surname,
+                                null,
+                                null,
+                                cardData.cardId,
+                                cardData.cardStatus,
+                                cardData.issuedTimestamp, 
+                                cardData.issuedBy,
+                                r.EmployeeStatus
+                            )
+                        );
+                        table.draw();
                     } catch (exceptionVar) {
                         console.log("ajaxGetCardStatus(): Exception: " + exceptionVar);
                     }
-                    var cardData = getLatestCardDetails(r.AccessCardData);
-                    table.row.add( 
-                        new IssuedAccessCardRecord(
-                            employeeId,
-                            null,
-                            r.Name,
-                            r.Surname,
-                            null,
-                            null,
-                            cardData.cardId,
-                            cardData.cardStatus,
-                            cardData.issuedTimestamp, 
-                            cardData.issuedBy,
-                            r.EmployeeStatus
-                        )
-                    );
-                    table.draw();
                     $('#lab3EmployeeLookupBtn').prop('disabled', false);
-
                     // Display the linking form IF the employee status is "onboarding"
                     if ( acceptedEmployeeStatusForDisplayingCardLinkForm.includes(r.EmployeeStatus)) {
                         $('#lab3AccessCardLinkingForm').prop('style', 'block');
                         console.log("ajaxGetCardStatus(): Employee Status is onboarding - displaying the linking form...");
                     } else {
+                        $('#lab3AccessCardLinkingForm').prop('style', 'display: none;');
                         console.log("ajaxGetCardStatus(): Employee Status is NOT onboarding, therefore not displaying the linking form...");
                     }
 
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
-                    // resetMessageBanners();
                     divVisibilityControl("LinkAccessCardPage", "EmployeeSearchErrorState");
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
                     console.error("ajaxGetCardStatus(): errorThrown=" + errorThrown);
@@ -868,31 +825,27 @@ function linkAccessCardToEmployeeBtnClick() {
                 },
                 success: function(r){ 
                     document.getElementById("lab3InfoMessage").textContent = "Response Received";
-                    // $('#lab3LinkAccessCardEventResponseRecordTableDiv').prop('style', 'block');
                     console.log("linkAccessCardToEmployeeBtnClick(): Ajax Call Succeeded");
                     console.log("linkAccessCardToEmployeeBtnClick(): r:" + JSON.stringify(r));
                     var table;
                     try {
                         table = createTableForLinkAccessCardEventResponseRecord();
+                        table.row.add( 
+                            new LinkAccessCardEventResponseRecord(
+                                r["event-bucket-name"],
+                                r["event-key"],
+                                r["event-key-version"],
+                                r["event-created-timestamp"],
+                                r["event-request-id"],
+                            )
+                        );
+                        table.draw();
                     } catch (exceptionVar) {
                         console.log("linkAccessCardToEmployeeBtnClick(): Exception: " + exceptionVar);
                     }
-                     
-                    table.row.add( 
-                        new LinkAccessCardEventResponseRecord(
-                            r["event-bucket-name"],
-                            r["event-key"],
-                            r["event-key-version"],
-                            r["event-created-timestamp"],
-                            r["event-request-id"],
-                        )
-                    );
-                    table.draw();
- 
                 },
                 error: function(jqXHR, textStatus, errorThrown ) {
                     divVisibilityControl("LinkAccessCardPage", "EmployeeLinkErrorState");
-                    // resetMessageBanners();
                     $('#lab3AlertMessage').prop('style', 'block');
                     document.getElementById("lab3AlertMessage").textContent = "Request Failed";
                     console.error("ajaxGetCardStatus(): textStatus=" + textStatus);
@@ -953,7 +906,6 @@ function divVisibilityControl(page, state) {
         if (state in page_states) {
             const div_states = page_states[state]
             for (const DIV_ID in div_states) {
-                // console.log(`${key}: ${user[key]}`);
                 const formatted_div_id = "#" + DIV_ID;
                 const div_style = div_states[DIV_ID];
                 $(formatted_div_id).prop('style', div_style);
