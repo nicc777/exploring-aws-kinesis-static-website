@@ -870,6 +870,10 @@ const PER_PAGE_DIV_STATES = {
             "lab3LinkAccessCardEventResponseRecordTableDiv": "display: none;",
         },
         "EmployeeSearchState": {
+            "lab3InfoMessage": "display: none;",
+            "lab3AlertMessage": "display: none;",
+            "lab3SuccessMessage": "display: none;",
+            "lab3WarningMessage": "display: none;",
             "lab3EmployeeInfoTable": "block;",
             "lab3AccessCardLinkingForm": "block",
             "lab3LinkAccessCardEventResponseRecordTableDiv": "display: none;",
