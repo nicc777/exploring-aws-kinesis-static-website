@@ -784,6 +784,7 @@ function linkAccessCardToEmployeeBtnClick() {
 
     // $('#lab3EmployeeInfoTable').prop('style', 'display: none;');
     var completeOnboarding = document.getElementById("lab3CompleteOnboarding").checked;
+    var campusSelection = document.getElementById("lab3CampusSelection").value;
     
     let card_id = document.getElementById("lab3AccessCardId1").value;
     let employee_id = document.getElementById("lab3EmployeeId1").value;
@@ -808,7 +809,8 @@ function linkAccessCardToEmployeeBtnClick() {
      var requestData = {
         "CardId": card_id, 
         "CompleteOnboarding": completeOnboarding, 
-        "LinkedBy": idToken["custom:employee-id"]
+        "LinkedBy": idToken["custom:employee-id"],
+        "Campus": campusSelection
     }
     console.log("linkAccessCardToEmployeeBtnClick(): requestData=" + JSON.stringify(requestData));
     if (accessToken) {
